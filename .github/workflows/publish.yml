@@ -56,6 +56,9 @@ jobs:
           cd programming_concepts_students
           ls
           git add -A
+          git commit -m "generated at $(date)"
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -vvvv -o StrictHostKeyChecking=no" git push
+          
           # git diff --exit-code is the normal git diff command but return 0 if there are no changes, or 1 if there are
           # This avoid crashing when we do a commit on something that is not pushed on the student repo
           if ! git diff --exit-code >> /dev/null;
