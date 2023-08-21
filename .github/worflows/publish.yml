@@ -1,4 +1,4 @@
-name: test + strip + deploy student
+name: test + strip + deploy pcj students
 
 on:
   push:
