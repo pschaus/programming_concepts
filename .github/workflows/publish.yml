@@ -27,7 +27,7 @@ jobs:
           MY_SSH_KEY: ${{ secrets.MY_SSH_KEY }}
           #KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
         run: |
-          echo "generate commit in algorithm_exercises and hide solutions..."
+          echo "generate commit in programming_concepts and hide solutions..."
           echo "config git ..."
           git config --global user.name github-actions
           git config --global user.email pschaus@users.noreply.github.com
@@ -39,7 +39,7 @@ jobs:
           #ssh -i ~/.ssh/id_rsa -vvvv -o StrictHostKeyChecking=no git@github.com
           echo "clone ..."
           ls ~/.ssh/id_rsa
-          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -vvvv -o StrictHostKeyChecking=no" git clone git@github.com:pschaus/algorithms_exercises_students.git
+          GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -vvvv -o StrictHostKeyChecking=no" git clone git@github.com:pschaus/programming_concepts_students.git
           echo "rm src ..."
           cd programming_concepts_students
           ls
