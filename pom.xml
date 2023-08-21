@@ -3,6 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <groupId>be.uclouvain.ingi.pcj</groupId>
     <artifactId>pcj</artifactId>
@@ -14,98 +17,98 @@
             <artifactId>JavaGrader</artifactId>
             <version>1.0.6</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/JavaGrader-1.0.6.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/JavaGrader-1.0.6.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>apiguardian-api</artifactId>
             <version>1.1.2</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/apiguardian-api-1.1.2.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/apiguardian-api-1.1.2.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>gson</artifactId>
             <version>2.10</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/gson-2.10.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/gson-2.10.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-jupiter-api-5.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-jupiter-api-5.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-jupiter-engine-5.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-jupiter-engine-5.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-jupiter-params</artifactId>
             <version>5.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-jupiter-params-5.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-jupiter-params-5.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-platform-commons</artifactId>
             <version>1.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-platform-commons-1.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-platform-commons-1.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-platform-engine</artifactId>
             <version>1.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-platform-engine-1.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-platform-engine-1.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-platform-launcher</artifactId>
             <version>1.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-platform-launcher-1.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-platform-launcher-1.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-platform-suite</artifactId>
             <version>1.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-platform-suite-1.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-platform-suite-1.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-platform-suite-api</artifactId>
             <version>1.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-platform-suite-api-1.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-platform-suite-api-1.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-platform-suite-commons</artifactId>
             <version>1.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-platform-suite-commons-1.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-platform-suite-commons-1.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>junit-platform-suite-engine</artifactId>
             <version>1.9.1</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/junit-platform-suite-engine-1.9.1.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/junit-platform-suite-engine-1.9.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>
             <artifactId>opentest4j</artifactId>
             <version>1.2.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/opentest4j-1.2.0.jar</systemPath>
+            <systemPath>${pom.basedir}/libs/opentest4j-1.2.0.jar</systemPath>
         </dependency>
     </dependencies>
 
