@@ -20,6 +20,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Step3 - Test
         run: |
+          mvn --version
           mvn test
       - name: Step4 - Strip exercises, commit and push to programming_concepts_students
         env:

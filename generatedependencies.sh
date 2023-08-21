@@ -18,7 +18,7 @@ for jar in libs/*.jar; do
   echo "      <artifactId>$artifactId</artifactId>"
   echo "      <version>$version</version>"
   echo "      <scope>system</scope>"
-  echo "      <systemPath>\${project.basedir}/libs/$filename</systemPath>"
+  echo "      <systemPath>\${pom.basedir}/libs/$filename</systemPath>"
   echo "  </dependency>"
 done
 
