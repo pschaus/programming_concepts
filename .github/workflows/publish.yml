@@ -52,7 +52,7 @@ jobs:
           cp README.md programming_concepts_students/.
           cp pom.xml programming_concepts_students/.
           cp -r libs programming_concepts_students/.
-          cp -r data programming_concepts_students/.
+          #cp -r data programming_concepts_students/.
           cd programming_concepts_students
           # git diff --exit-code is the normal git diff command but return 0 if there are no changes, or 1 if there are
           # This avoid crashing when we do a commit on something that is not pushed on the student repo
