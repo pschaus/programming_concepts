@@ -11,9 +11,6 @@ import java.util.Random;
 
 public class RecursiveStackTest {
 
-
-
-
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void test1() {
@@ -121,16 +118,16 @@ public class RecursiveStackTest {
         assertFalse(ite.hasNext());
     }
 
-    /*
-    @Test(expected = EmptyStackException.class)
+
+    @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testEmptyTop() {
         RecursiveStack<Integer> e = new RecursiveStack<>();
-        int v = e.top();
+        assertThrows(EmptyStackException.class, () ->  e.top());
     }
 
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testEmpty() {
         RecursiveStack<Integer> e = new RecursiveStack<>();
@@ -139,10 +136,10 @@ public class RecursiveStackTest {
         e = e.add(3);
 
         e = e.removeTop();
-        e = e.removeTop();
-        e = e.removeTop();
+        final RecursiveStack<Integer> ef = e.removeTop();
+        assertThrows(EmptyStackException.class, () -> ef.removeTop());
     }
-     */
+
 
     // BEGIN STRIP
 

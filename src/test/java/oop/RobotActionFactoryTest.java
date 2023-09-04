@@ -109,26 +109,24 @@ public class RobotActionFactoryTest {
                                                          "FORWARD" }));
     }
 
-    /*
-    @Test(expected = IllegalArgumentException.class)
+
     @Grade(value = 1, cpuTimeout = 1000)
     public void testRepeatWithoutEnd() {
         // to get this test, you should at least have basic actions working
         assertEquals("FR", execute(new String[] { "FORWARD", "RIGHT",}));
 
-        execute(new String[] { "REPEAT 1" });
+        assertThrows(IllegalArgumentException.class, () -> execute(new String[] { "REPEAT 1" }));
     }
-    
-    @Test(expected = IllegalArgumentException.class)
+
     @Grade(value = 1, cpuTimeout = 1000)
     public void testUnknownAction() {
         // to get this test, you should at least have basic actions working
         assertEquals("FR", execute(new String[] { "FORWARD", "RIGHT",}));
 
-        execute(new String[] { "FORWARD 100" });
+        assertThrows(IllegalArgumentException.class, () -> execute(new String[] { "FORWARD 100" }));
     }
 
-     */
+
 
     @Test
     @Grade(value = 1, cpuTimeout = 1000)

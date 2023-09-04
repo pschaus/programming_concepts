@@ -20,23 +20,24 @@ public class PhysicsSolverTest {
         assertFalse(s.hasValue());
     }
 
-    /*
-    @Test(expected = RuntimeException.class)
+
+    @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testNoSlotValue() {
         PhysicsSolver.Slot s = new PhysicsSolver.Slot();
-        s.getValue();
+        assertThrows(RuntimeException.class, () -> s.getValue());
     }
 
     // BEGIN STRIP
-    @Test(expected = RuntimeException.class)
+    @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testIncompatibleSlotValue() {
         PhysicsSolver.Slot s = new PhysicsSolver.Slot();
         s.setValue(42);
-        s.setValue(44);
+        assertThrows(RuntimeException.class, () -> s.setValue(44));
+
     }
-    */
+
 
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
