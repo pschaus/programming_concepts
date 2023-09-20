@@ -1,19 +1,14 @@
-accessible: true
-name: '[LINFO1121] Algorithmique et structures de données'
+accessible: false
+name: '[LEPL1402]'
 description: ''
 admins:
 - pschaus
-- Harold
+- jodogne
+- raminsadre
 - aldubray
-tutors:
-- lunelis
-- sotlet
-- Louis_Valkenberg
-- timothy
-- steveny
-- lepouttre
-- thernandez
-- cpacko
+- ldierckx
+- echatzopoulo
+tutors: []
 groups_student_choice: false
 allow_unregister: true
 allow_preview: false

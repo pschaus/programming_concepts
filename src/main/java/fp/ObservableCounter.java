@@ -47,7 +47,7 @@ public class ObservableCounter {
         // STUDENT return -1;
         // BEGIN STRIP
         c += 1;
-        for (Consumer o: observers) {
+        for (Consumer<Integer> o: observers) {
             o.accept(c);
         }
         return c;

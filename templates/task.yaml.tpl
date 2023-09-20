@@ -9,13 +9,14 @@ context: |-
 
     .. _`Click here`: /course/{0}/{1}/{2}
 
+    .. code-block:: java
+
+{4}
 
     .. warning::
 
          * Instruction provided at the top of the source file on IntelliJ.
          * Debug using small and easy unit tests provided in junit tests, it can also help to clarify the instructions.
-
-
 
 environment: java8
 evaluate: last

@@ -132,7 +132,9 @@ public class KNN {
      *         among the k most similar students is > k/2, false otherwise
      */
     public static boolean predictSuccess(Student [] students, double[] grades, int k) {
-        int n = students.length;
+        // TODO
+        // STUDENT return false;
+        // BEGIN STRIP
 
         Arrays.sort(students, new Comparator<Student>() {
             @Override

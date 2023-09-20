@@ -51,7 +51,7 @@ public class QRcode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         QRcode qRcode = (QRcode) o;
-        boolean [][] r = ((QRcode) o).data;
+        boolean [][] r = qRcode.data;
         if (equalArray(data,r)) {
             return true;
         }
