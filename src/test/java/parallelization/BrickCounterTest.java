@@ -1,5 +1,6 @@
 package parallelization;
 
+import org.javagrader.Allow;
 import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,7 +9,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.function.Function;
 
-
+@Grade
 public class BrickCounterTest {
     private static class MyBrick implements BrickCounter.Brick {
         private final String color;
@@ -282,6 +283,7 @@ public class BrickCounterTest {
 
     @Test()
     @Grade(value = 1, cpuTimeout = 1000)
+    @Allow("all")
     public void testThreadsNoBrick() {
         ThreadsCheckingBrick[] bricks = new ThreadsCheckingBrick[0];
 
@@ -299,6 +301,7 @@ public class BrickCounterTest {
 
     @Test()
     @Grade(value = 1, cpuTimeout = 1000)
+    @Allow("all")
     public void testThreadsOneBrick() {
         ThreadsCheckingBrick[] bricks = new ThreadsCheckingBrick[]{
                 new ThreadsCheckingBrick("red", 1)
@@ -320,6 +323,7 @@ public class BrickCounterTest {
 
     @Test()
     @Grade(value = 4, cpuTimeout = 10000)
+    @Allow("all")
     public void testThreadsManyBricks() {
         // make 499 red bricks with random sizes between 0 and 9
         Random random = new Random();

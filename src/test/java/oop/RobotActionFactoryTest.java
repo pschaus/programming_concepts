@@ -4,6 +4,7 @@ import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Grade
 public class RobotActionFactoryTest {
     private static class RobotTest implements RobotActionFactory.Robot {
         private String result = new String();

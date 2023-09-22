@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+@Grade
 public class EmployeeFinderTest {
     EmployeeFinder.Employee e0 = new EmployeeFinder.Employee(0, 5.4f, 1000);
     EmployeeFinder.Employee e1 = new EmployeeFinder.Employee(1, 6.0f, 3000);

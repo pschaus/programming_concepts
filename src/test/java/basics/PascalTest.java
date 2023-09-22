@@ -12,6 +12,7 @@ import java.util.Random;
 
 // END STRIP
 
+@Grade
 public class PascalTest {
     
     // BEGIN STRIP

@@ -4,10 +4,11 @@ import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Grade
 public class StringIteratorTest {
 
     @Test
+    @Grade
     public void test1() {
 
         StringIterator.IterableString myString = StringIterator.makeIterableString("Hello World");

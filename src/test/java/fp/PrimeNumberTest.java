@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.stream.IntStream;
 
+@Grade
 public class PrimeNumberTest {
 
     @Test

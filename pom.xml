@@ -13,11 +13,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>unknown.group</groupId>
+            <groupId>io.github.ucl-ingi</groupId>
             <artifactId>JavaGrader</artifactId>
             <version>1.0.6</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/libs/JavaGrader-1.0.6.jar</systemPath>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>unknown.group</groupId>

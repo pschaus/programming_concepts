@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// BEGIN STRIP
 import java.util.Random;
-
 // END STRIP
+
+@Grade
 public class CommonElementsTest {
 
 // BEGIN STRIP

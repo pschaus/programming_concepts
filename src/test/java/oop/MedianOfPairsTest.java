@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.LinkedList;
 import java.util.List;
 
-
+@Grade
 public class MedianOfPairsTest {
 
     @Test

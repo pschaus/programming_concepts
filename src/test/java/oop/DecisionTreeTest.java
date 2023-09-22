@@ -4,12 +4,14 @@ import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+// BEGIN STRIP
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
 // END STRIP
 
+@Grade
 public class DecisionTreeTest {
 
 // BEGIN STRIP

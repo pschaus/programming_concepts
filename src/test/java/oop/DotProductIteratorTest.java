@@ -8,7 +8,7 @@ import java.util.stream.DoubleStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Grade
 public class DotProductIteratorTest {
     static final float THRESHOLD = 0.000001f;
 

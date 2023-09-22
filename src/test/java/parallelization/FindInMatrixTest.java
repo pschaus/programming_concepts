@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
 
+@Grade
 public class FindInMatrixTest {
 
     private final int[][] verySmallMatrix = new int[][] {

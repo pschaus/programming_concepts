@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.Arrays;
 // END STRIP
 
+@Grade
 public class MaximumSumSubarrayTest {
     
     // BEGIN STRIP

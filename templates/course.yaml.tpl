@@ -1,13 +1,11 @@
-accessible: false
-name: '[LEPL1402]'
+accessible: true
+name: '[LEPL1402] Programming Concepts'
 description: ''
 admins:
 - pschaus
 - jodogne
 - raminsadre
 - aldubray
-- ldierckx
-- echatzopoulo
 tutors: []
 groups_student_choice: false
 allow_unregister: true
