@@ -2,11 +2,24 @@ accessible: true
 name: '[LEPL1402] Programming Concepts'
 description: ''
 admins:
-- pschaus
-- jodogne
-- raminsadre
+- echatzopoulo
+- ldierckx
 - aldubray
-tutors: []
+- pschaus
+- raminsadre
+- jodogne
+tutors:
+- NathanZ
+- alenicolas
+- nougueprosny
+- feforet
+- rdefroyennes
+- lkayitakire
+- qkenfack
+- Hippolyte
+- colsonad
+- AdrienNotte
+- ndevleeschou
 groups_student_choice: false
 allow_unregister: true
 allow_preview: false
