@@ -14,6 +14,9 @@ public class Anagram {
      *
      * Characters that are neither in the range 'a' to 'z', nor in the
      * range 'A' to 'Z' must be ignored.
+     *
+     * The time complexity of your method must be Theta(n),
+     * where n is the size of the string.
      * 
      * @param s The string of interest.
      * @return An array counting the number of occurrences of each
@@ -42,6 +45,11 @@ public class Anagram {
      * Check whether one string is an anagram of another string. It is
      * strongly advised to use the function "countAlphabet()" as a
      * building block for function "isAnagram()".
+     *
+     * The time complexity of your method must be O(n+m),
+     * where n is the size of the first string, and m is the size of
+     * the second string.
+     *
      * @param s1 The first string.
      * @param s2 The second string.
      * @return <code>true</code> iff. the two strings are anagrams.
