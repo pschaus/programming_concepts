@@ -11,17 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class FibonacciTest {
 
     @Test
-    @Timeout(3)
-    @Grade(value = 1, custom = true, cpuTimeout = 1)
+    @Grade(value = 1, cpuTimeout = 1, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     public void test50() {
         assertEquals(12586269025L, Fibonacci.fibonacci(50));
     }
 
     @Test
-    @Timeout(3)
-    @Grade(value = 1, custom = true, cpuTimeout = 1)
+    @Grade(value = 1, cpuTimeout = 1, threadMode = Timeout.ThreadMode.SEPARATE_THREAD)
     public void test75() {
         assertEquals(2111485077978050L, Fibonacci.fibonacci(75));
     }
-
 }
