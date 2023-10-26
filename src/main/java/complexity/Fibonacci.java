@@ -19,18 +19,17 @@ public class Fibonacci {
      * @return The nth Fibonacci number.
      * @throws IllegalArgumentException if n is negative.
      */
-    public static long fibonacci(long n) {
-        if (n < 0) {
-            throw new IllegalArgumentException("n should be non-negative");
-        }
-        if (n <= 1) {
-            return n;
-        }
-        return Math.addExact(fibonacci(n - 1) , fibonacci(n - 2)); // I use addExact to avoid silent overflow
-    }
-
+    // STUDENT public static long fibonacci(long n) {
+    // STUDENT    if (n < 0) {
+    // STUDENT        throw new IllegalArgumentException("n should be non-negative");
+    // STUTENT    }
+    // STUDENT    if (n <= 1) {
+    // STUDENT        return n;
+    // STUDENT    }
+    // STUDENT    return Math.addExact(fibonacci(n - 1) , fibonacci(n - 2)); // I use addExact to avoid silent overflow
+    // STUDENT }
     // BEGIN STRIP
-    public static long fibonacciIterative(long n) {
+    public static long fibonacci(long n) {
         if (n < 0) throw new IllegalArgumentException("n should be non-negative");
         if (n == 1) return n;
         long a = 0, b = 1;
