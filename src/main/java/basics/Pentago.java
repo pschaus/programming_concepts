@@ -56,9 +56,6 @@ package basics;
  * instance variables. Even if this is not required to succeed this
  * quiz, you can possibly add new methods and import Java classes.
  *
- * NOTE: If you have a question, you can ask it on the following Teams channel:
- * https://teams.microsoft.com/l/channel/19%3adaf32f5af520411ca9562ddbe76e51a7%40thread.tacv2/Quiz?groupId=0a375f0f-8e80-4903-8534-d6f40cc4b69d&tenantId=7ab090d4-fa2e-4ecf-bc7c-4127b4d582ec
- * WARNING: Be careful not to copy your any part of your source code in this channel!
  */
 public class Pentago {
     /**
