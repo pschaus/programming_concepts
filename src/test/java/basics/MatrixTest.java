@@ -166,4 +166,5 @@ public class MatrixTest {
             assertArrayEquals(expected, Matrix.product(m1, m2));
         }
     }
+// END STRIP
 }

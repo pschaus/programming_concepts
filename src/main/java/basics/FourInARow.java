@@ -1,4 +1,5 @@
-package basics;// BEGIN STRIP
+package basics;
+// BEGIN STRIP
 
 /**
 

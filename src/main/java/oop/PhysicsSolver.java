@@ -201,9 +201,10 @@ public class PhysicsSolver {
             factor2_ = slot;
         }
 
-        // BEGIN STRIP
         @Override
         public boolean update() {
+			// STUDENT return false;
+        	// BEGIN STRIP
             if (factor1_.hasValue() &&
                 factor2_.hasValue()) {
                 return product_.setValue(factor1_.getValue() * factor2_.getValue());
@@ -216,15 +217,17 @@ public class PhysicsSolver {
             } else {
                 return false;
             }
+        	// END STRIP
         }
 
         @Override
         public void clearValues() {
+        	// BEGIN STRIP
             product_.clearValue();
             factor1_.clearValue();
             factor2_.clearValue();
+        	// END STRIP
         }
-        // END STRIP
     }
 
   
@@ -278,9 +281,10 @@ public class PhysicsSolver {
             number_ = slot;
         }
 
-        // BEGIN STRIP
         @Override
         public boolean update() {
+			// STUDENT return false;
+        	// BEGIN STRIP
             if (number_.hasValue()) {
                 return square_.setValue(number_.getValue() * number_.getValue());
             } else if (square_.hasValue()) {
@@ -288,14 +292,16 @@ public class PhysicsSolver {
             } else {
                 return false;
             }
+        	// END STRIP
         }
 
         @Override
         public void clearValues() {
+        	// BEGIN STRIP
             square_.clearValue();
             number_.clearValue();
+        	// END STRIP
         }
-        // END STRIP
     }
 
 

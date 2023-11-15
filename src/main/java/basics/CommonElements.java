@@ -10,7 +10,7 @@ public class CommonElements {
      *         for instance count([1,3,5,5],[1,2,5,5,6]) = 3
      */
     public static int count(int [] tab1, int [] tab2) {
-        // STUDENT return null;
+        // STUDENT return -1;
         // BEGIN STRIP
         int res = 0;
         for (int i = 0; i < Math.min(tab1.length,tab2.length); i++) {
@@ -28,7 +28,7 @@ public class CommonElements {
      *         more exactly the size of set {(i,j) such that tab1[i][j] == tab2[i][j]}
      */
     public static int count(int [][] tab1, int [][] tab2) {
-        // STUDENT return null;
+        // STUDENT return -1;
         // BEGIN STRIP
         int res = 0;
         for (int i = 0; i < Math.min(tab1.length,tab2.length); i++) {

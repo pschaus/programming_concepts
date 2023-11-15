@@ -18,10 +18,8 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     public RecursiveStack() {
         // TODO
-        // BEGIN STRIP
         e = null;
         next = null;
-        // END STRIP
     }
 
     /**
@@ -33,10 +31,8 @@ public class RecursiveStack<E>  implements Iterable<E> {
      */
     private RecursiveStack(E e, RecursiveStack<E> next) {
         // TODO
-        // BEGIN STRIP
         this.e = e;
         this.next = next;
-        // END STRIP
     }
 
     /**
@@ -48,6 +44,7 @@ public class RecursiveStack<E>  implements Iterable<E> {
      * @return the new stack
      */
     public RecursiveStack<E> add(E e) {
+		// STUDENT return null;
         // TODO
         // BEGIN STRIP
         return new RecursiveStack<>(e,this);

@@ -10,7 +10,7 @@ public class KnapsackBruteForce {
         };
         int capacity = 50;
 
-        int maxValue = knapsack(items, capacity, 0);
+        int maxValue = knapsack(items, capacity);
         System.out.println("Maximum value: " + maxValue);
     }
 

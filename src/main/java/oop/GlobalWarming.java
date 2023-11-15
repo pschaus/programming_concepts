@@ -1,4 +1,5 @@
-package oop;// BEGIN STRIP
+package oop;
+// BEGIN STRIP
 
 /**
 

@@ -22,7 +22,7 @@ public class Fibonacci {
     // STUDENT public static long fibonacci(long n) {
     // STUDENT    if (n < 0) {
     // STUDENT        throw new IllegalArgumentException("n should be non-negative");
-    // STUTENT    }
+    // STUDENT    }
     // STUDENT    if (n <= 1) {
     // STUDENT        return n;
     // STUDENT    }

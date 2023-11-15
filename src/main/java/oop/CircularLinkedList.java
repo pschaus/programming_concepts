@@ -75,7 +75,7 @@ public class CircularLinkedList {
     }
     
     public int remove(int index) {
-        // STUDENT return -1
+        // STUDENT return -1;
         // BEGIN STRIP
         if (index >= this.size) {
 

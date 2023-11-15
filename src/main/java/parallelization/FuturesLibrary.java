@@ -1,4 +1,5 @@
-package parallelization;// BEGIN STRIP
+package parallelization;
+// BEGIN STRIP
 
 /**
 
