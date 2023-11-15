@@ -22,7 +22,7 @@ jobs:
         run: |
           mvn --version
           mvn test
-      - name: Step4 - Strip exercises, commit and push to programming_concepts_students
+      - name: Step4 - Strip exercises
         env:
           MY_SSH_KEY: ${{ secrets.MY_SSH_KEY }}
           #KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
@@ -54,16 +54,27 @@ jobs:
           cp -r libs programming_concepts_students/.
           #cp -r data programming_concepts_students/.
           cd programming_concepts_students
+      - name: Compiling source code for the students
+        run: |
+          cd programming_concepts_students
+          mvn compile
+      - name: Compiling test for the students
+        run: |
+          cd programming_concepts_students
+          mvn test-compile
+      - name: Publishing the student repo if there were changes
+        env:
+          MY_SSH_KEY: ${{ secrets.MY_SSH_KEY }}
+        run: |
+          cd programming_concepts_students
+          #KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
           # git diff --exit-code is the normal git diff command but return 0 if there are no changes, or 1 if there are
           # This avoid crashing when we do a commit on something that is not pushed on the student repo
           echo "Checking if there are changes for the students"
-          if ! git diff --exit-code >> /dev/null;
+          if git diff --exit-code >> /dev/null;
           then
-            echo "Changes for the students, update the student repo"
             git add -A
             git commit -m "generated at $(date)"
             GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -vvvv -o StrictHostKeyChecking=no" git push
-          else
-            echo "No changes for the students"
           fi
           cd ..
