@@ -6,15 +6,28 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-// END STRIP
 
 public class FindInMatrix {
     // You are allowed to add methods or class members, but do not change the signature
     // of the existing methods and class members.
 
     public static class Result {
-        int row;
-        List<Integer> columns;
+        private int row;
+        private List<Integer> columns;
+
+        Result(int row,
+               List<Integer> columns) {
+            this.row = row;
+            this.columns = columns;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public List<Integer> getColumns() {
+            return columns;
+        }
     }
 
     /**
@@ -65,13 +78,12 @@ public class FindInMatrix {
             }));
         }
 
-        Result result=new Result();
+        Result result=null;
         for(int row=0;row<futures.size();row++) {
             try {
                 ArrayList<Integer> columns=futures.get(row).get();
-                if(result.columns==null || columns.size()>result.columns.size()) {
-                    result.row=row;
-                    result.columns=columns;
+                if(result==null || columns.size()>result.columns.size()) {
+                    result = new Result(row, columns);
                 }
             }
             catch(InterruptedException | ExecutionException e) {

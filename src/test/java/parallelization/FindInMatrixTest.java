@@ -24,20 +24,20 @@ public class FindInMatrixTest {
     @Grade(value = 1, cpuTimeout = 1000)
     public void testVerySmallMatrix() {
         FindInMatrix.Result result=FindInMatrix.findValue(verySmallMatrix,1, 1);
-        assertEquals(0, result.row);
-        assertArrayEquals(new Integer[]{0}, result.columns.toArray());
+        assertEquals(0, result.getRow());
+        assertArrayEquals(new Integer[]{0}, result.getColumns().toArray());
     }
 
     private void testSmallMatrix(int poolSize) {
         // the value "3" appears twice in row 2 in columns 0 and 2
         FindInMatrix.Result result=FindInMatrix.findValue(smallMatrix,3, poolSize);
-        assertEquals(2, result.row);
-        assertArrayEquals(new Integer[]{0,2}, result.columns.toArray());
+        assertEquals(2, result.getRow());
+        assertArrayEquals(new Integer[]{0,2}, result.getColumns().toArray());
 
         // the value "-4" appears once in row 0 in column 3
         FindInMatrix.Result result2=FindInMatrix.findValue(smallMatrix,-4, poolSize);
-        assertEquals(0, result2.row);
-        assertArrayEquals(new Integer[]{3}, result2.columns.toArray());
+        assertEquals(0, result2.getRow());
+        assertArrayEquals(new Integer[]{3}, result2.getColumns().toArray());
     }
 
     @Test
@@ -85,9 +85,9 @@ public class FindInMatrixTest {
         // test whether your solution correctly identifies the row with
         // the most number of occurrences of the value 100
         FindInMatrix.Result result=FindInMatrix.findValue(matrix,100, poolSize);
-        assertEquals(rowWithMostOccurrences, result.row);
-        assertEquals(11, result.columns.size());
-        // we are lazy and don't test the contents of result.columns here.
+        assertEquals(rowWithMostOccurrences, result.getRow());
+        assertEquals(11, result.getColumns().size());
+        // we are lazy and don't test the contents of result.getColumns() here.
     }
 
     @Test

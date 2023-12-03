@@ -1,5 +1,4 @@
-package parallelization;// You can add imports
-
+package parallelization;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,14 +14,21 @@ public class ExamGrader {
 
 
     public static class ExamQuestion {
-        public double pointsObtained;
-        public ExamQuestion nextQuestion;
+        private double pointsObtained;
+        private ExamQuestion nextQuestion;
 
         public ExamQuestion(double points, ExamQuestion next) {
             this.pointsObtained = points;
             this.nextQuestion = next;
         }
 
+        public double getPointsObtained() {
+            return pointsObtained;
+        }
+
+        public ExamQuestion getNextQuestion() {
+            return nextQuestion;
+        }
     }
 
     /**
@@ -48,9 +54,9 @@ public class ExamGrader {
         int score = 0;
 
         while(questions != null){
-            int rounded = roundingFunction.roundGrade(questions.pointsObtained);
+            int rounded = roundingFunction.roundGrade(questions.getPointsObtained());
             score += rounded;
-            questions = questions.nextQuestion;
+            questions = questions.getNextQuestion();
         }
         return score;
         // END STRIP
