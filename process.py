@@ -35,7 +35,7 @@ def get_exercises(package):
     # Note that for some exercises, there are "generators" which are used to generate data for testing.
     # These files are not exercises per se and should be omited from the exercise list.
     # They are name <exercise_name>Generator.java
-    return [os.path.splitext(os.path.basename(f))[0] for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and not str(f).endswith('Generator.java')]
+    return [os.path.splitext(os.path.basename(f))[0] for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and not str(f).endswith('Generator.java') and not str(f).endswith('~')]
 
 packages = get_packages()
 exercises = {p: get_exercises(p) for p in packages}
