@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 /**
  *
  */
-public class PrimeNumber {
+public class PrimeNumberStream {
 
     /**
      * Check that number is prime (can be divided by 1 and himself)
@@ -48,7 +48,7 @@ public class PrimeNumber {
         // Hint: use filter
         // STUDENT return null;
         // BEGIN STRIP
-        return streamFrom(from).filter(PrimeNumber::isPrime);
+        return streamFrom(from).filter(PrimeNumberStream::isPrime);
         // END STRIP
     }
 
@@ -65,7 +65,7 @@ public class PrimeNumber {
         // TODO
         // STUDENT return null;
         // BEGIN STRIP
-        return streamFrom(from).filter(PrimeNumber::isPrime).map(new IntUnaryOperator() {
+        return streamFrom(from).filter(PrimeNumberStream::isPrime).map(new IntUnaryOperator() {
             int previous;
             @Override
             public int applyAsInt(int operand) {

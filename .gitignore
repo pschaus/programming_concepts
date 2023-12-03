@@ -26,3 +26,6 @@ replay_pid*
 inginious/
 target/
 stripped_project/
+
+# Emacs
+*~
