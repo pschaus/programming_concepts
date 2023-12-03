@@ -1,4 +1,4 @@
-package parallelization;
+package fp;
 
 import org.javagrader.Allow;
 import org.javagrader.Grade;

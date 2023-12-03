@@ -1,4 +1,4 @@
-package parallelization;
+package fp;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;

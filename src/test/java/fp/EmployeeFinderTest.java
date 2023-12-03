@@ -1,4 +1,4 @@
-package parallelization;
+package fp;
 
 import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
