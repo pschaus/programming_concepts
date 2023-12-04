@@ -8,6 +8,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
+/**
+ * In this exercise, you have to count the number of prime numbers in
+ * an interval of integers using multiple threads. You have to
+ * implement three versions of the multithreaded computation: Using a
+ * Runnable, using a Callable, and using a shared variable.
+ **/
 public class CountPrimeNumbers {
     /**
      * Integer counter that is thread-safe thanks to the
@@ -42,10 +48,10 @@ public class CountPrimeNumbers {
     /**
      * Check whether the given number is prime. A prime is an integer
      * that is not a product of two smaller natural numbers. By
-     * convention, negative numbers, zero, and 1 are not prime
-     * numbers.
+     * convention, negative numbers, zero, and 1 are not considered as
+     * prime numbers.
      *
-     * @param number the number to be tested.
+     * @param number The number to be tested.
      * @return true if the number is prime, false otherwise.
      */
     public static boolean isPrime(int number) {
@@ -68,7 +74,7 @@ public class CountPrimeNumbers {
 
 
     /**
-     * Count the number of primes in the given interval of integers.
+     * Count the number of primes inside the given interval of integers.
      *
      * @param start Start of the interval (inclusive).
      * @param end End of the interval (exclusive).
@@ -154,7 +160,8 @@ public class CountPrimeNumbers {
         }
 
         /**
-         * Return the number of primes that were found in the interval.
+         * Return the number of primes that were found in the interval
+         * by the call to "run()".
          **/
         public int getResult() {
             // TODO
@@ -207,10 +214,12 @@ public class CountPrimeNumbers {
     /**
      * Count the number of primes up to a given number "end" by using
      * a thread pool and the CountPrimesCallable class defined above.
-     * You must divide the range between "0" and "end" into "countIntervals"
-     * intervals. 
-     * each 
-     * 
+     *
+     * You must divide the range between "0" and "end" into
+     * "countIntervals" intervals of roughly equal length (note that a
+     * more realistic implementation could consider a sequence of
+     * intervals with reducing length, to account for the linear
+     * complexity of "countPrimesInInterval()").
      *
      * @param threadPool The thread pool to be used.
      * @param end Largest number to be considered (exclusive, i.e.
@@ -252,6 +261,11 @@ public class CountPrimeNumbers {
         // END STRIP
     }
 
+
+    /**
+     * Method with the same specification as
+     * "countPrimesWithCallable()", but using CountPrimesRunnable.
+     **/
     public static int countPrimesWithRunnable(ExecutorService threadPool,
                                               int end,
                                               int countIntervals) throws InterruptedException, ExecutionException {
@@ -284,6 +298,11 @@ public class CountPrimeNumbers {
         // END STRIP
     }
 
+
+    /**
+     * Method with the same specification as
+     * "countPrimesWithCallable()", but using CountPrimesSharedCounter.
+     **/
     public static void countPrimesWithSharedCounter(SharedCounter target,
                                                     ExecutorService threadPool,
                                                     int end,
