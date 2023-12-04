@@ -227,6 +227,7 @@ public class CountPrimeNumbers {
      * < end").
      * @param countIntervals The number of intervals to be processed
      * by Future. 
+     * @return The number of prime numbers below "end".
      *
      * NOTES:
      *   - The "threadPool" parameter corresponds to the thread pool to
@@ -302,6 +303,8 @@ public class CountPrimeNumbers {
     /**
      * Method with the same specification as
      * "countPrimesWithCallable()", but using CountPrimesSharedCounter.
+     * Also, the result must be stored inside the "target" shared
+     * variable, instead of being returned by the method.
      **/
     public static void countPrimesWithSharedCounter(SharedCounter target,
                                                     ExecutorService threadPool,
