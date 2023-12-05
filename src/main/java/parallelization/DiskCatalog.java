@@ -104,11 +104,11 @@ public class DiskCatalog {
             while (iterator.hasNext()) {
                 Disk disk = iterator.next();
             
-                if ((bandName.isEmpty() ||
+                if ((!bandName.isPresent() ||
                      bandName.get().equals(disk.getBandName())) &&
-                    (diskTitle.isEmpty() ||
+                    (!diskTitle.isPresent() ||
                      diskTitle.get().equals(disk.getDiskTitle())) &&
-                    (year.isEmpty() ||
+                    (!year.isPresent() ||
                      year.get().equals(disk.getYear()))) {
                     count++;
                 }
