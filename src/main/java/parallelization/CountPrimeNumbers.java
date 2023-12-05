@@ -236,6 +236,7 @@ public class CountPrimeNumbers {
      *     create the thread pool, nor the "executor.shutdown()"
      *     method (this is already done for you in the unit tests).
      *   - You do not have to catch any exception.
+     *   - You must throw IllegalArgumentException if countIntervals <= 0.
      **/
     public static int countPrimesWithCallable(ExecutorService threadPool,
                                               int end,
@@ -243,6 +244,10 @@ public class CountPrimeNumbers {
         // TODO
         // STUDENT return 0;
         // BEGIN STRIP
+        if (countIntervals <= 0) {
+            throw new IllegalArgumentException();
+        }
+        
         Stack<Future<Integer>> futures = new Stack<>();
 
         int intervalsize = end / countIntervals;
@@ -273,6 +278,10 @@ public class CountPrimeNumbers {
         // TODO
         // STUDENT return 0;
         // BEGIN STRIP
+        if (countIntervals <= 0) {
+            throw new IllegalArgumentException();
+        }
+        
         List<CountPrimesRunnable> runnables = new ArrayList<>();
         Stack<Future> futures = new Stack<>();
 
@@ -312,6 +321,10 @@ public class CountPrimeNumbers {
                                                     int countIntervals) throws InterruptedException, ExecutionException {
         // TODO
         // BEGIN STRIP
+        if (countIntervals <= 0) {
+            throw new IllegalArgumentException();
+        }
+        
         target.set(0);
         Stack<Future> futures = new Stack<>();
 

@@ -13,7 +13,7 @@ public class CountPrimeNumbersTest {
 
     @Test
     @Grade(value = 1, cpuTimeout = 2000)
-    public void testisPrime() {
+    public void testIsPrime() {
         assertFalse(CountPrimeNumbers.isPrime(-10));
         assertFalse(CountPrimeNumbers.isPrime(-1));
         assertFalse(CountPrimeNumbers.isPrime(0));
