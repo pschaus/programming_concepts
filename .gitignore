@@ -29,3 +29,6 @@ stripped_project/
 
 # Emacs
 *~
+
+# IntelliJ
+.idea
