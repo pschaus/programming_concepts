@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
+import java.util.function.IntConsumer;
 
 @Grade
 public class FindInMatrixTest {
@@ -77,8 +78,11 @@ public class FindInMatrixTest {
         for(int row=0; row<matrixNumRows; row++) {
             // put the value 100 at random places in the row
             final int r=row;
-            rng.ints(0, matrixNumColumns).distinct().limit(row==rowWithMostOccurrences ? 11 : 10).forEach((int randomColumn)->{
-                matrix[r][randomColumn]=100;
+            rng.ints(0, matrixNumColumns).distinct().limit(row==rowWithMostOccurrences ? 11 : 10).forEach(new IntConsumer() {
+                @Override
+                public void accept(int randomColumn) {
+                    matrix[r][randomColumn] = 100;
+                }
             });
         }
 

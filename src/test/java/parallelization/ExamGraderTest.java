@@ -17,9 +17,19 @@ public class ExamGraderTest {
     @Test
     @Grade(value=1, cpuTimeout=1000)
     public void testWithOneQuestion() {
-        int examGradeRoundedDown = ExamGrader.calculateExamGrade(q1, (sum)-> (int)Math.floor(sum) );
+        int examGradeRoundedDown = ExamGrader.calculateExamGrade(q1, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.floor(sum);
+            }
+        });
         assertEquals(5, examGradeRoundedDown);
-        int examGradeRoundedUp = ExamGrader.calculateExamGrade(q1, (sum)-> (int)Math.ceil(sum) );
+        int examGradeRoundedUp = ExamGrader.calculateExamGrade(q1, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.ceil(sum);
+            }
+        });
         assertEquals(6, examGradeRoundedUp);
     }
 
@@ -29,11 +39,21 @@ public class ExamGraderTest {
     // END STRIP
     public void testWithTwoQuestions() {
         // calculate the exam grade by rounding down
-        int examGradeRoundedDown = ExamGrader.calculateExamGrade(q2, (sum)-> (int)Math.floor(sum) );
+        int examGradeRoundedDown = ExamGrader.calculateExamGrade(q2, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.floor(sum);
+            }
+        });
         assertTrue(examGradeRoundedDown == 10 || examGradeRoundedDown == 9);
 
         // calculate the exam grade by rounding up
-        int examGradeRoundedUp = ExamGrader.calculateExamGrade(q2, (sum)-> (int)Math.ceil(sum) );
+        int examGradeRoundedUp = ExamGrader.calculateExamGrade(q2, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.ceil(sum);
+            }
+        });
         assertEquals(11, examGradeRoundedUp);
     }
 
@@ -46,11 +66,21 @@ public class ExamGraderTest {
             questions = new ExamGrader.ExamQuestion(1.5, questions);
         }
 
-        int examGradeRoundedDown = ExamGrader.calculateExamGrade(questions, (sum)-> (int)Math.floor(sum) );
+        int examGradeRoundedDown = ExamGrader.calculateExamGrade(questions, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.floor(sum);
+            }
+        });
 
         assertTrue(examGradeRoundedDown == 16 || examGradeRoundedDown == 11);
 
-        int examGradeRoundedUp = ExamGrader.calculateExamGrade(questions, (sum)-> (int)Math.ceil(sum) );
+        int examGradeRoundedUp = ExamGrader.calculateExamGrade(questions, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.ceil(sum);
+            }
+        });
         assertTrue(examGradeRoundedUp == 17 || examGradeRoundedUp == 22);
     }
 
@@ -60,14 +90,24 @@ public class ExamGraderTest {
         // The first exam has questions q1 and q2.
         // The second exam has questions q1, q2, and q3.
 
-        int[] resultsRoundedDown = ExamGrader.gradeExams(q2, q3, (sum)-> (int)Math.floor(sum) );
+        int[] resultsRoundedDown = ExamGrader.gradeExams(q2, q3, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.floor(sum);
+            }
+        });
         assertEquals(2, resultsRoundedDown.length);
 
         assertTrue(resultsRoundedDown[0] == 10 || resultsRoundedDown[0] == 9);
         assertTrue(resultsRoundedDown[1] == 14 || resultsRoundedDown[1] == 13);
 
 
-        int[] resultsRoundedUp = ExamGrader.gradeExams(q2, q3, (sum)-> (int)Math.ceil(sum) );
+        int[] resultsRoundedUp = ExamGrader.gradeExams(q2, q3, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.ceil(sum);
+            }
+        });
         assertEquals(2, resultsRoundedUp.length);
         assertEquals( resultsRoundedUp[0], 11);
         assertEquals( resultsRoundedUp[1], 15);
@@ -83,15 +123,17 @@ public class ExamGraderTest {
         // The first exam has questions q1 and q2.
         // The second exam has questions q1, q2, and q3.
         Random rng = new Random();
-        int[] resultsRoundedUp = ExamGrader.gradeExams(q2, q3, (sum)-> {
-            try {
-                // this exams need some time to grade them...
-                Thread.sleep(300+rng.nextInt(500));
+        int[] resultsRoundedUp = ExamGrader.gradeExams(q2, q3, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                try {
+                    // this exams need some time to grade them...
+                    Thread.sleep(300 + rng.nextInt(500));
+                } catch (InterruptedException e) {
+                }
+                return (int) Math.ceil(sum);
             }
-            catch(InterruptedException e) {
-            }
-            return (int)Math.ceil(sum);
-        } );
+        });
         assertEquals(2, resultsRoundedUp.length);
         assertEquals(11, resultsRoundedUp[0]);
         assertEquals(15, resultsRoundedUp[1]);
@@ -112,7 +154,12 @@ public class ExamGraderTest {
             exam2 = new ExamGrader.ExamQuestion(1.67, exam2);
         }
 
-        int[] resultsRoundedUp = ExamGrader.gradeExams(exam1, exam2, (sum)-> (int)Math.ceil(sum) );
+        int[] resultsRoundedUp = ExamGrader.gradeExams(exam1, exam2, new ExamGrader.RoundingFunction() {
+            @Override
+            public int roundGrade(double sum) {
+                return (int) Math.ceil(sum);
+            }
+        });
         assertEquals(2, resultsRoundedUp.length);
 
         assertTrue(resultsRoundedUp[0] == 15 || resultsRoundedUp[0] == 20);
