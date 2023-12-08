@@ -287,10 +287,10 @@ public class BrickCounter {
             }
             return null;
         } else if (false) {
-            // CORRECT SOLUTION by student Mathis Delsart, that was denied
-            // during the exam because it didn't launch exactly 2 threads
-            // (the student launches 0 thread if the array is empty or only
-            // contains 1 element)
+            // CORRECT SOLUTION by a student, that was denied during
+            // the exam because it didn't launch exactly 2 threads
+            // (the student launches 0 thread if the array is empty or
+            // only contains 1 element)
             int[] array = new int[n];
             int lengthBricks = bricks.length;
 

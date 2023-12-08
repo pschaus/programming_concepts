@@ -1,20 +1,5 @@
 package fp;
-// BEGIN STRIP
 
-/**
-
-   Comments by Ramin (2023-07-10):
-
-   "Looks good to me. Our traditional thread question in a different
-   disguise :) Taking the role of a young student, I had first
-   difficulties to understand what the parameter "countBooks" means,
-   but if we provide a simple example in the tests, it should become
-   clear. If we want to make this question more difficult, we could
-   ask them to return the list of found books, not just the count."
-
- **/
-
-// END STRIP
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
