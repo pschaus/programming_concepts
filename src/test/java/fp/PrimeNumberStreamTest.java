@@ -10,8 +10,22 @@ import java.util.stream.IntStream;
 public class PrimeNumberStreamTest {
 
     @Test
-    @Grade(value = 1, cpuTimeout = 1000)
-    public void testisPrime() {
+    @Grade(value = 1, cpuTimeout = 2000)
+    public void testIsPrime() {
+        assertFalse(PrimeNumberStream.isPrime(-10));
+        assertFalse(PrimeNumberStream.isPrime(-1));
+        assertFalse(PrimeNumberStream.isPrime(0));
+        assertFalse(PrimeNumberStream.isPrime(1));
+        assertTrue(PrimeNumberStream.isPrime(2));
+        assertTrue(PrimeNumberStream.isPrime(3));
+        assertFalse(PrimeNumberStream.isPrime(4));
+        assertTrue(PrimeNumberStream.isPrime(5));
+        assertFalse(PrimeNumberStream.isPrime(6));
+        assertTrue(PrimeNumberStream.isPrime(7));
+        assertFalse(PrimeNumberStream.isPrime(8));
+        assertFalse(PrimeNumberStream.isPrime(9));
+        assertFalse(PrimeNumberStream.isPrime(10));
+        assertTrue(PrimeNumberStream.isPrime(11));
         assertTrue(PrimeNumberStream.isPrime(19));
         assertTrue(PrimeNumberStream.isPrime(17));
         assertFalse(PrimeNumberStream.isPrime(0));
@@ -38,7 +52,7 @@ public class PrimeNumberStreamTest {
     @Grade(value = 1, cpuTimeout = 1000)
     public void testPrime1() {
         IntStream streamInf = PrimeNumberStream.primeStreamFrom(0);
-        assertArrayEquals(streamInf.limit(9).toArray(), new int[]{1, 2, 3, 5, 7, 11, 13, 17, 19});
+        assertArrayEquals(streamInf.limit(13).toArray(), new int[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41});
     }
 
 
@@ -47,6 +61,13 @@ public class PrimeNumberStreamTest {
     public void testPrime2() {
         IntStream streamInf = PrimeNumberStream.primeStreamFrom(8191);
         assertArrayEquals(streamInf.limit(20).toArray(), new int[]{8191, 8209, 8219, 8221, 8231, 8233, 8237, 8243, 8263, 8269, 8273, 8287, 8291, 8293, 8297, 8311, 8317, 8329, 8353, 8363});
+    }
+
+    @Test
+    @Grade(value = 1, cpuTimeout = 1000)
+    public void testInfiniteStreamOfPrimeGaps1() {
+        IntStream streamInf = PrimeNumberStream.primeGapStreamFrom(0);
+        assertArrayEquals(streamInf.limit(12).toArray(), new int[]{1, 2, 2, 4, 2, 4, 2, 4, 6, 2, 6, 4});
     }
 
     @Test
