@@ -1,5 +1,6 @@
 package parallelization;
 
+import org.javagrader.Allow;
 import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.*;
 
 @Grade
+@Allow("java.lang.Thread")
 public class CountPrimeNumbersTest {
 
     @Test

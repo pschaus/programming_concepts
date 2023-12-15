@@ -1,6 +1,7 @@
 package parallelization;
 
 
+import org.javagrader.Allow;
 import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,6 +10,7 @@ import java.util.Random;
 import java.util.function.IntConsumer;
 
 @Grade
+@Allow("java.lang.Thread")
 public class FindInMatrixTest {
 
     private final int[][] verySmallMatrix = new int[][] {

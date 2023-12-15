@@ -1,6 +1,7 @@
 package fp;
 
 import fp.ObservableCounter;
+import org.javagrader.Allow;
 import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 @Grade
+@Allow("java.lang.Thread")
 public class ObservableCounterTest {
 
     @Test
