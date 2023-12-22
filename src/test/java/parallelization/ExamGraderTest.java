@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Random;
 
-// END STRIP
 @Grade
+@Allow("java.lang.Thread")
 public class ExamGraderTest {
     ExamGrader.ExamQuestion q1 = new ExamGrader.ExamQuestion(5.5, null);
     ExamGrader.ExamQuestion q2 = new ExamGrader.ExamQuestion(4.7, q1);

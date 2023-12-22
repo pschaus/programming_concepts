@@ -10,6 +10,7 @@ import java.util.concurrent.*;
 import java.util.function.Function;
 
 @Grade
+@Allow("java.lang.Thread")
 public class BrickCounterTest {
     private static class MyBrick implements BrickCounter.Brick {
         private final String color;

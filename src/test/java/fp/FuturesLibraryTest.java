@@ -10,6 +10,7 @@ import java.util.concurrent.*;
 import java.util.function.Predicate;
 
 @Grade
+@Allow("java.lang.Thread")
 public class FuturesLibraryTest {
     private static class MyBook implements FuturesLibrary.Book {
         private String author;
