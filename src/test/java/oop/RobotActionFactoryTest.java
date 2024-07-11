@@ -111,6 +111,7 @@ public class RobotActionFactoryTest {
     }
 
 
+    @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testRepeatWithoutEnd() {
         // to get this test, you should at least have basic actions working
@@ -119,6 +120,7 @@ public class RobotActionFactoryTest {
         assertThrows(IllegalArgumentException.class, () -> execute(new String[] { "REPEAT 1" }));
     }
 
+    @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testUnknownAction() {
         // to get this test, you should at least have basic actions working
