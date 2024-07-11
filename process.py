@@ -27,8 +27,9 @@ def get_dir_from_exercices(exs):
     return course_name + '_'.join(exs)
 
 def get_packages():
-    return [f for f in os.listdir(source_dir) if os.path.isdir(os.path.join(source_dir, f))]
-
+    res = [f for f in os.listdir(source_dir) if os.path.isdir(os.path.join(source_dir, f))]
+    print(res)
+    return [p for p in res if not p == 'junk']
 def get_exercises(package):
     """Get the list of exercises from the source directory"""
     directory = os.path.join(source_dir, package)
