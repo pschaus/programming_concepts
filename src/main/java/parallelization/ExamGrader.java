@@ -100,4 +100,3 @@ public class ExamGrader {
         // END STRIP
     }
 }
-
