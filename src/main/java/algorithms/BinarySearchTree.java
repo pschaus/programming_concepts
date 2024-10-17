@@ -81,7 +81,4 @@ public class BinarySearchTree {
         }
     }
     // END STRIP
-
-
-
 }
