@@ -62,6 +62,16 @@ public class MaximumSumSubarrayTest {
         assertEquals(new MaximumSumSubarray.ArrayIndex(0, end - 1), MaximumSumSubarray.maximumSumSubarray(array));
     }
 
+
+    @Test
+    @Grade(value = 1)
+    public void testAllNegative() {
+        int [] array = new int[]{-8,-4,-10,-2,-3};
+        MaximumSumSubarray.ArrayIndex solution = MaximumSumSubarray.maximumSumSubarray(array);
+        assertEquals(3, solution.start);
+        assertEquals(3, solution.end);
+    }
+
     @Test
     @Grade(value = 1)
     public void testSubArrayAtEnd() {

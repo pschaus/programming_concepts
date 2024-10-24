@@ -31,7 +31,7 @@ public class MaximumSumSubarray {
     }
     
     /**
-     * Finds the contiguous sub-array for which the sum of its elements is maximal.
+     * Finds the contiguous non-empty sub-array for which the sum of its elements is maximal.
      * If multiple sub-arrays have the same maximal sum, returns the one that starts at
      * the lowest index.
      * 
@@ -45,35 +45,30 @@ public class MaximumSumSubarray {
     public static ArrayIndex maximumSumSubarray(int [] array) {
         // STUDENT return new ArrayIndex(-1, -1);
         // BEGIN STRIP
-        // The first element is the basic solution
         ArrayIndex subarray = new ArrayIndex(0, 0);
-        // The accumulated sum in the currently considered sub-array
         int currentSum = array[0];
-        // The greatest sum we have seen so far
-        int maximalSeenSum = Integer.MIN_VALUE;
-        // Start of the currently considered sub-array
+        int maxSum = Integer.MIN_VALUE;
         int start = 0;
-        for (int end = 1; end < array.length; end++) {
-            // Extends the current sub-array with the next element
-            currentSum += array[end];
-            // We have an array with a sum greater than the maximum we have seen !
-            // Update the solution and the maximum
-            if (currentSum > maximalSeenSum) {
-                maximalSeenSum = currentSum;
+        int end = 1;
+
+        // Loop Invariant:
+        // start = argmax_{i < end} sum(array[i:end-1])
+        // currentSum = sum(array[start:end-1])
+        // maxSum is the largest sum subarray on the interval [0, end - 1]
+        // and subarray is the subarray that achieves this sum
+        while (end < array.length) {
+            if (array[end] > currentSum + array[end]) {
+                currentSum = array[end];
+                start = end;
+            } else {
+                currentSum += array[end];
+            }
+            if (currentSum > maxSum) {
+                maxSum = currentSum;
                 subarray.start = start;
                 subarray.end = end;
             }
-            // If the sum of the currently considered sub-array is less than 0, then the next element either
-            //      1) is negative, and decrease the sum of the sub-array if we extend to it
-            //      2) Is positive and it will increase the sum of the sub-array. But taking the positive element alone
-            //         yields a sub-array with a better sum
-            // Thus we can stop extending this sub-array and starting one from the next index.
-            // If the sum, is positive then we must extend the array to the next element. The best sub-array
-            // can not start at the next element since the current sub-array has a positive sum.
-            if (currentSum < 0) {
-                currentSum = 0;
-                start = end + 1;
-            }
+            end++;
         }
         return subarray;
         // END STRIP
