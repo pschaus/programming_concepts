@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 @Grade
-public class TreeHashtableTest {
+public class HashtableTest {
 
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void test() {
 
-        TreeHashtable map = new TreeHashtable();
+        Hashtable map = new Hashtable();
         map.put("Apple", 5);
         map.put("Orange", 10);
         map.put("Banana", 1);
@@ -27,8 +27,8 @@ public class TreeHashtableTest {
 
     // BEGIN STRIP
 
-    private TreeHashtable makeMap(int n) {
-        TreeHashtable map = new TreeHashtable();
+    private Hashtable makeMap(int n) {
+        Hashtable map = new Hashtable();
         for (int i = 0; i < n; i++) {
             map.put(String.valueOf(i), i);
         }
@@ -38,7 +38,7 @@ public class TreeHashtableTest {
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testCorrectlyRemove() {
-        TreeHashtable map = makeMap(10);
+        Hashtable map = makeMap(10);
         assertEquals(4, map.delete("4"));
         assertNull(map.delete("4"));
     }
@@ -46,7 +46,7 @@ public class TreeHashtableTest {
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testDeleteWithCollisions() {
-        TreeHashtable map = makeMap(100);
+        Hashtable map = makeMap(100);
         List<Integer> elements = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             elements.add(i);

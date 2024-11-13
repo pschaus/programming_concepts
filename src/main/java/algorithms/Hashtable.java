@@ -27,7 +27,7 @@ package algorithms;
  */
 import java.util.LinkedList;
 
-public class TreeHashtable {
+public class Hashtable {
 
     // Size of the internal array
     private static final int N = 10;
@@ -37,7 +37,7 @@ public class TreeHashtable {
 
     // Constructor initializes the array
     @SuppressWarnings("unchecked")
-    public TreeHashtable() {
+    public Hashtable() {
         table = new LinkedList[N];
         for (int i = 0; i < N; i++) {
             table[i] = new LinkedList<>();
