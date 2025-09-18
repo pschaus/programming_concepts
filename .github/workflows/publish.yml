@@ -73,6 +73,7 @@ jobs:
           echo "Checking if there are changes for the students"
           if ! (git diff --exit-code >> /dev/null)
           then
+            rm -rf target
             git add -A
             git commit -m "generated at $(date)"
             GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa -vvvv -o StrictHostKeyChecking=no" git push
