@@ -137,10 +137,21 @@ def generate_course_yaml():
         toc += f"- id: {package}\n  title: {package}\n  rank: {i}\n  tasks_list:\n"
         for j, exercise in enumerate(exercises[package]):
             toc += f"    {package}_{exercise}: {j}\n"
+    dispenser_data = ""
+    for i, package in enumerate(packages):
+        config= ""
+        for j, exercise in enumerate(exercises[package]):
+            config += f"    {package}_{exercise}\n"
+            config += f"        accessibility: true\n"
+            config += f"        evaluation_mode: last\n"
+            config += f"        submission_limit:\n"
+            config += f"            amount: -1\n"
+            config += f"        period: -1\n"
+            config += f"        weight: 1.0\n"
+        dispenser_data += f"config:\n{config}\n"
 
     with open(os.path.join(inginious_dir, 'course.yaml'), 'w') as f:
-        f.write(tpl.format(toc))
-    
+        f.write(tpl.format(toc=toc, dispenser_data=dispenser_data))
 
 def create_stripped_project():
     # This function copy the whole java project in the `stripped_project` directory

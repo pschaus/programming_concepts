@@ -41,8 +41,3 @@ problems:
     type: code
     default: ''
 run_cmd: ''
-stored_submissions: 0
-submission_limit:
-    amount: -1
-    period: -1
-weight: 1.0
