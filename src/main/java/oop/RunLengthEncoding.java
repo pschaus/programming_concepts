@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/*
- Imagine a string that contains a lot of characters that are repeated,
- for example like this:
-    "dddddaaazzzzzzdddz"
-
- To be more space efficient, we could represent the string as a list
- where the elements of the list tell us how often a character is repeated.
- For our example, this would look like this:
-    [  (5,'d'), (3,'a'), (6,'z'), (3,'d') , (1,'z') ]
- An element like (6,'z') means that there are 6 consecutive 'z' at this
- position in the string.
-
- This kind of compression is called Run Length Encoding.
-
- The class RunLengthEncoding below is an implementation of such a
- compressed representation. It uses a List containing objects of the
- class RepeatingValue.
-
- Your must implement the constructors and methods marked as "TODO".
-*/
-
+/**
+ * (Proposed at the exam of August 2025)
+ *  Imagine a string that contains a lot of characters that are repeated,
+ *  for example like this:
+ *     "dddddaaazzzzzzdddz"
+ *
+ *  To be more space efficient, we could represent the string as a list
+ *  where the elements of the list tell us how often a character is repeated.
+ *  For our example, this would look like this:
+ *     [  (5,'d'), (3,'a'), (6,'z'), (3,'d') , (1,'z') ]
+ *  An element like (6,'z') means that there are 6 consecutive 'z' at this
+ *  position in the string.
+ *
+ *  This kind of compression is called Run Length Encoding.
+ *
+ *  The class RunLengthEncoding below is an implementation of such a
+ *  compressed representation. It uses a List containing objects of the
+ *  class RepeatingValue.
+ *
+ *  Your must implement the constructors and methods marked as "TODO".
+ */
 public class RunLengthEncoding {
 
     /**

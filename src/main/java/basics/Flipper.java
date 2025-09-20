@@ -1,4 +1,4 @@
-package quizz;
+package basics;
 
 // BEGIN STRIP
 import java.util.Set;

@@ -1,4 +1,4 @@
-package quizz;
+package basics;
 
 import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
