@@ -61,7 +61,7 @@ def strip_directory(path):
     for file in os.listdir(path):
         strip_file(os.path.join(path, file))
 
-def createTestFile(package, exercise, exercise_dir):
+def create_test_file(package, exercise, exercise_dir):
     filename = exercise + 'Test.java'
     with open(os.path.join(exercise_dir, 'src', 'test', 'java', package, filename), 'w') as f:
         f.write(open(os.path.join(test_dir, package, filename)).read())
@@ -84,7 +84,7 @@ def create_exercise_task(package, exercise):
                     os.path.join(exercise_dir, 'pom.xml'))
 
     # Copy the test file to the src directory
-    createTestFile(package, exercise, exercise_dir)
+    create_test_file(package, exercise, exercise_dir)
 
     # Run file
     run_file = 'run.py'
