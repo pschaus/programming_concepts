@@ -3,23 +3,14 @@ name: '[LEPL1402] Programming Concepts'
 description: ''
 admins:
 - echatzopoulo
-- ldierckx
-- aldubray
 - pschaus
 - raminsadre
 - jodogne
+- wiauxb
+- bduhoux
+- froucoux
 tutors:
-- NathanZ
-- alenicolas
-- nougueprosny
-- feforet
-- rdefroyennes
-- lkayitakire
 - qkenfack
-- Hippolyte
-- colsonad
-- AdrienNotte
-- ndevleeschou
 groups_student_choice: false
 allow_unregister: true
 allow_preview: false
