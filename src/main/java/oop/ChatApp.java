@@ -205,7 +205,8 @@ public class ChatApp {
          *   pour activer ou désactiver le mute d’un autre utilisateur
          *   au format suivant : "/mute <username>"
          *
-         *   - Sinon, le message est envoyé à tous les abonnés.
+         *   - Sinon, le message est envoyé à tous les abonnés et affiché sur la console sous la forme:
+         *   "<sender username> (<channel>): <message>"
          *
          * @param sender  l’utilisateur qui envoie le message
          * @param message contenu du message ou commande
