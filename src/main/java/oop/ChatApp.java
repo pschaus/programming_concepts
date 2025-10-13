@@ -181,13 +181,20 @@ public class ChatApp {
          * Un message de départ est affiché dans la console.
          * au format suivant "<username> a quitté le channel #<channelname>
          *
+         * Si l'utilisateur n'est pas dans le canal, affiche le message suivant
+         * "<username> n'est pas dans le channel #<channelname>
+         *
          * @param user l’utilisateur à retirer
          */
         public void unsubscribe(User user) {
             // TODO
             // BEGIN STRIP
-            users.remove(user);
-            System.out.println(user.getName() + " a quitté le channel #" + channelName);
+            if (users.contains(user)) {
+                users.remove(user);
+                System.out.println(user.getName() + " a quitté le channel #" + channelName);
+            } else {
+                System.out.println(user.getName() + " n'est pas dans le channel #" + channelName);
+            }
             // END STRIP
         }
 
