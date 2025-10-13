@@ -2,7 +2,14 @@ package oop;
 import java.util.*;
 
 /**
- * Pattern Observer appliqué à une Chat Room
+ * Dans ce TP, vous allez implémenter une salle de discussion en utilisant le pattern Observer.
+ * Lorsqu’un utilisateur envoie un message, tous les autres abonnés de la salle doivent être notifiés.
+ *
+ * Un utilisateur peut mettre en silencieux (mute) d'autres utilisateurs, dans ce cas il ne recevra pas les messages
+ * des utilisateurs "muted", peu importe la salle de discussion (channel)
+ *
+ * Un utilisateur peut s'abonner ou se désabonner aux différentes salles, pour recevoir les messages envoyés dessus.
+ *
  * ---------------------------------------------------------
  * Classes incluses :
  *  - interface User (Observer)
@@ -10,6 +17,43 @@ import java.util.*;
  *  - classe ChatRoom (Subject)
  *  - classe ChatApp (point d’entrée)
  */
+
+/**
+Exemple de fonctionnement attendu avec affichage console :
+
+ChatRoom general = new ChatRoom("general");
+ChatUser alice = new ChatUser("Alice");
+ChatUser bob = new ChatUser("Bob");
+
+general.subscribe(alice);
+// Console : Alice a rejoint le channel #general
+general.subscribe(bob);
+// Console : Bob a rejoint le channel #general
+
+bob.sendMessage(general, "Salut !");
+// Console : Bob (general): Salut !
+// Console : [Alice] reçoit sur #general → Bob: Salut !
+
+alice.sendMessage(general, "/mute Bob");
+// Console : Alice a muté Bob
+
+bob.sendMessage(general, "Encore un message");
+// Console : Bob (general): Encore un message
+// Alice ne reçoit rien car Bob est muté
+
+alice.sendMessage(general, "/mute Bob");
+// Console : Alice a réactivé Bob
+
+bob.sendMessage(general, "Ça remarche ?");
+// Console : Bob (general): Ça remarche ?
+// Console : [Alice] reçoit sur #general → Bob: Ça remarche ?
+
+general.unsubscribe(alice);
+// Console : Alice a quitté le channel #general
+
+general.unsubscribe(alice);
+// Console : Alice n'est pas dans le channel #general
+*/
 public class ChatApp {
 
     /* ------------------ OBSERVER ------------------ */

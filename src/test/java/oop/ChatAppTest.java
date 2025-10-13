@@ -103,9 +103,10 @@ class ChatAppTest {
 
         assertTrue(console.contains("[Bob] reçoit sur #TPs > Alice: Hello"));
         output.reset();
+        // END STRIP
         room.unsubscribe(bob);
 
-
+        // BEGIN STRIP
         alice.sendMessage(room, "Vous avez fait l'exercice 4?");
         console = output.toString();
         assertFalse(console.contains("[Bob] reçoit"));
