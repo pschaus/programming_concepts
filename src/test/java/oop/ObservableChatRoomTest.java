@@ -127,4 +127,25 @@ public class ObservableChatRoomTest {
         room.subscribe(bob);
         room.writeMessage(alice, "Hello");
     }
+
+    @Test
+    @Grade(value = 1, cpuTimeout = 1000)
+    public void testTwoRooms() {
+        ObservableChatRoom roomA = new ObservableChatRoom();
+        ObservableChatRoom roomB = new ObservableChatRoom();
+
+        CountingUser alice  = new CountingUser("Alice");
+        CountingUser bob  = new CountingUser("Bob");
+
+        roomA.subscribe(alice);
+        roomB.subscribe(alice);
+
+        roomA.writeMessage(bob, "Good morning");
+
+        assertEquals(1, alice.getCount());
+
+        roomB.writeMessage(bob, "Good morning");
+
+        assertEquals(2, alice.getCount());
+    }
 }
