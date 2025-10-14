@@ -2,304 +2,402 @@ package oop;
 import java.util.*;
 
 /**
- * Dans ce TP, vous allez implémenter une salle de discussion en utilisant le pattern Observer.
- * Lorsqu’un utilisateur envoie un message, tous les autres abonnés de la salle doivent être notifiés.
+ * In this practical exercise, you will implement a chat room system using the Observer pattern.
  *
- * Un utilisateur peut mettre en silencieux (mute) d'autres utilisateurs, dans ce cas il ne recevra pas les messages
- * des utilisateurs "muted", peu importe la salle de discussion (channel)
+ * When a user sends a message, all other subscribers of the chat room must be notified.
+ * ALl messages sent or received by a user are stored in its log in the form of an arraylist
+ * of Message objects
  *
- * Un utilisateur peut s'abonner ou se désabonner aux différentes salles, pour recevoir les messages envoyés dessus.
+ * A user can mute other users. In that case, they will not receive messages from muted users,
+ * regardless of which chat room (channel) the messages are sent in.
+ *
+ * Users can subscribe or unsubscribe from different chat rooms to receive messages sent there.
  *
  * ---------------------------------------------------------
- * Classes incluses :
- *  - interface User (Observer)
- *  - classe ChatUser (implémentation d’un utilisateur)
- *  - classe ChatRoom (Subject)
- *  - classe ChatApp (point d’entrée)
+ * Included classes:
+ *   - User interface (Observer)
+ *   - ChatUser class (concrete implementation of a user)
+ *   - ChatRoom class (Subject)
+ *   - ChatApp class (entry point)
+ *
+ * ---------------------------------------------------------
+ *
+ * Example of expected behavior with user logs:
+ *
+ * ChatRoom general = new ChatRoom("general");
+ * ChatUser alice = new ChatUser("Alice");
+ * ChatUser bob = new ChatUser("Bob");
+ *
+ * general.subscribe(alice);
+ * // Alice joins channel #general
+ * // ChatMessage added to Alice's log:
+ * // new ChatMessage("join", "general", "Alice", "")
+ *
+ * general.subscribe(bob);
+ * // Bob joins channel #general
+ * // ChatMessage added to Bob's log:
+ * // new ChatMessage("join", "general", "Bob", "")
+ *
+ * bob.sendMessage(general, new ChatMessage("post", "general", "Bob", "Hi!"));
+ * // Bob posts a message in #general
+ * // ChatMessage added to Bob's log:
+ * // new ChatMessage("post", "general", "Bob", "Hi!")
+ * // Alice receives the message
+ * // ChatMessage added to Alice's log:
+ * // new ChatMessage("receive", "general", "Bob", "Hi!")
+ *
+ * alice.sendMessage(general, new ChatMessage("mute", "-", "Bob", ""));
+ * // Alice mutes Bob
+ * // ChatMessage added to Alice's log only:
+ * // new ChatMessage("mute", "-", "Bob", "")
+ *
+ * bob.sendMessage(general, new ChatMessage("post", "general", "Bob", "Another message"));
+ * // Bob posts another message
+ * // ChatMessage added to Bob's log:
+ * // new ChatMessage("post", "general", "Bob", "Another message")
+ * // Alice does NOT receive it (muted)
+ *
+ * alice.sendMessage(general, new ChatMessage("mute", "-", "Bob", ""));
+ * // Alice unmutes Bob
+ * // ChatMessage added to Alice's log only:
+ * // new ChatMessage("mute", "-", "Bob", "")
+ *
+ * bob.sendMessage(general, new ChatMessage("post", "general", "Bob", "It works again?"));
+ * // Bob posts a message
+ * // ChatMessage added to Bob's log:
+ * // new ChatMessage("post", "general", "Bob", "It works again?")
+ * // Alice receives it
+ * // ChatMessage added to Alice's log:
+ * // new ChatMessage("receive", "general", "Bob", "It works again?")
+ *
+ * general.unsubscribe(alice);
+ * // Alice leaves channel #general
+ * // ChatMessage added to Alice's log:
+ * // new ChatMessage("leave", "general", "Alice", "")
+ *
+ * general.unsubscribe(alice);
+ * // Alice was not in the channel
+ * // ChatMessage added to Alice's log:
+ * // new ChatMessage("info", "general", "Alice", "Alice is not in channel #general")
  */
 
-/**
-Exemple de fonctionnement attendu avec affichage console :
-
-ChatRoom general = new ChatRoom("general");
-ChatUser alice = new ChatUser("Alice");
-ChatUser bob = new ChatUser("Bob");
-
-general.subscribe(alice);
-// Console : Alice a rejoint le channel #general
-general.subscribe(bob);
-// Console : Bob a rejoint le channel #general
-
-bob.sendMessage(general, "Salut !");
-// Console : Bob (general): Salut !
-// Console : [Alice] reçoit sur #general → Bob: Salut !
-
-alice.sendMessage(general, "/mute Bob");
-// Console : Alice a muté Bob
-
-bob.sendMessage(general, "Encore un message");
-// Console : Bob (general): Encore un message
-// Alice ne reçoit rien car Bob est muté
-
-alice.sendMessage(general, "/mute Bob");
-// Console : Alice a réactivé Bob
-
-bob.sendMessage(general, "Ça remarche ?");
-// Console : Bob (general): Ça remarche ?
-// Console : [Alice] reçoit sur #general → Bob: Ça remarche ?
-
-general.unsubscribe(alice);
-// Console : Alice a quitté le channel #general
-
-general.unsubscribe(alice);
-// Console : Alice n'est pas dans le channel #general
-*/
 public class ChatApp {
 
-    /* ------------------ OBSERVER ------------------ */
+    /**
+     * Represents a single entry in a user's activity log.
+     *
+     * Each ChatMessage corresponds to an event or an action in the chat application:
+     *
+     *   - "join": when a user joins a channel
+     *     - `user` = joining user
+     *     - `channel` = channel joined
+     *     - `content` = optional, can be empty
+     *
+     *   - "leave": when a user leaves a channel
+     *     - `user` = leaving user
+     *     - `channel` = channel left
+     *     - `content` = optional, can be empty
+     *
+     *   - "info": informational messages (e.g., already subscribed or invalid command)
+     *     - `user` = user affected by the info
+     *     - `channel` = relevant channel
+     *     - `content` = description of the info (optional, can be empty)
+     *     - Only logged in the sender's log (not broadcast to others)
+     *
+     *
+     *   - "post": when a user sends a message to a channel
+     *     - `user` = sender
+     *     - `channel` = channel where message was sent
+     *     - `content` = message text
+     *
+     *   - "receive": when a user receives a message from another user
+     *     - `user` = sender of the message
+     *     - `channel` = channel where message was sent
+     *     - `content` = message text from sender
+     *
+     *   - "mute": when a user mutes or unmutes another user
+     *     - `user` = target of the mute/unmute
+     *     - `channel` = "-" (global)
+     *     - `content` = optional, can be empty
+     *     - Only logged in the sender's log (not broadcast to others)
+     *
+     * These objects allow keeping a complete history of all user actions
+     * without relying on console output.
+     *
+     * Example:
+     *   new ChatMessage("receive", "general", "Bob",
+     *       "Hi!"); // Alice received a message from Bob in #general
+     *
+     *   new ChatMessage("mute", "-", "Bob", ""); // Sender muted Bob (only in sender's log)
+     */
+    public static class ChatMessage {
+        private final String type;
+        private final String channel;
+        private final String user;
+        private final String content;
+
+        public ChatMessage(String type, String channel, String user, String content) {
+            this.type = type;
+            this.channel = channel;
+            this.user = user;
+            this.content = content;
+        }
+
+        public String getType() { return type; }
+        public String getChannel() { return channel; }
+        public String getUser() { return user; }
+        public String getContent() { return content; }
+
+        @Override
+        public String toString() {
+            return "[" + type + "] " + user + "@" + channel + ": " + content;
+        }
+    }
+
+    /* ------------------ OBSERVER INTERFACE ------------------ */
+    /**
+     * Defines the Observer interface.
+     * Each user can receive updates from a chat room, retrieve their name,
+     * and access their message log.
+     */
     public interface User {
-        void update(String channel, String message);
+        void update(ChatMessage message);
         String getName();
+        List<ChatMessage> getLog();
+        void toggleMuteUser(String userName);
     }
 
     /* ------------------ CONCRETE OBSERVER ------------------ */
+    /**
+     * Represents a user (Observer) who can join chat rooms, send messages,
+     * mute/unmute other users, and keep an internal activity log.
+     */
     public static class ChatUser implements User {
         private String name;
-        private ArrayList<String> mutedUsers = new ArrayList<>();
+        private List<String> mutedUsers = new ArrayList<>();
+        private List<ChatMessage> log = new ArrayList<>();
 
         public ChatUser(String name) {
-            // TODO
             // BEGIN STRIP
             this.name = name;
             // END STRIP
         }
 
         /**
-         * Notifie l’utilisateur qu’un message a été reçu dans un canal.
-         * Si l’expéditeur est dans la liste des utilisateurs "mutés",
-         * le message est ignoré.
+         * Called when a message is sent in a channel the user is subscribed to.
+         * If the sender is muted, the message is ignored.
          *
-         *  Le message est affiché sur la console au format suivant:
-         *  "[<username>] reçoit sur #<channel> > <username expéditeur> : message
-         * @param channel nom du canal où le message est posté
-         * @param message message complet sous la forme "Expéditeur: contenu"
+         * @param message the complete message in the form "Sender: content"
          */
         @Override
-        public void update(String channel, String message) {
-            // TODO
+        public void update(ChatMessage message) {
             // BEGIN STRIP
-            String senderName = message.split(":")[0];
-            if (!mutedUsers.contains(senderName)) {
-                System.out.println("[" + name + "] reçoit sur #" + channel + " > " + message);
+            // Ignore messages from muted users
+            if (message.getType().equals("post") && !mutedUsers.contains(message.getUser())) {
+                log.add(new ChatMessage("receive", message.getChannel(), message.getUser(), message.getContent()));
             }
             // END STRIP
         }
 
-        /**
-         * @return le nom de cet utilisateur
-         */
+        /** @return the name of this user */
         @Override
         public String getName() {
-            // TODO
             // BEGIN STRIP
             return name;
             // END STRIP
         }
 
-        /**
-         * Envoie un message à la salle spécifiée.
-         * Peut être un message normal ou une commande spéciale (ex: /mute).
-         *
-         * @param room    la salle de discussion où envoyer le message
-         * @param message le message à envoyer
-         */
-        public void sendMessage(ChatRoom room, String message) {
-            // TODO
+        /** @return the list of all ChatMessages recorded for this user */
+        public List<ChatMessage> getLog() {
             // BEGIN STRIP
-            room.sendMessage(this, message);
+            return log;
             // END STRIP
         }
 
         /**
-         * Active ou désactive le mute d’un utilisateur.
-         * Si l’utilisateur est déjà muté => on le "démute"
-         * Sinon => on le mute.
-         * @param userName nom de l’utilisateur à (dé)muter
+         * Sends a message to the given chat room.
+         * The message can be a normal text or a command (e.g. /mute).
+         *
+         * @param room    the chat room to send the message to
+         * @param message the message content
+         * @return a list of ChatMessages generated by this action
          */
+        public List<ChatMessage> sendMessage(ChatRoom room, ChatMessage message) {
+            // BEGIN STRIP
+            List<ChatMessage> messages = room.sendMessage(this, message);
+            log.addAll(messages);
+            return messages;
+            // END STRIP
+        }
+
+        /**
+         * Toggles the mute state of another user.
+         *
+         * This action is local to the sender: it only affects the sender’s log.
+         * The `user` field of the generated ChatMessage corresponds to the user
+         * being muted or unmuted (the target), while the sender remains implicit.
+         *
+         * @param userName the name of the user to mute or unmute
+         */
+        @Override
         public void toggleMuteUser(String userName) {
-            // TODO
             // BEGIN STRIP
             if (isMuted(userName)) {
-                // Unmute
-                for (int i = 0; i < mutedUsers.size(); i++) {
-                    if (mutedUsers.get(i).equals(userName)) {
-                        mutedUsers.remove(i);
-                        System.out.println(name + " a réactivé " + userName);
-                        return;
-                    }
-                }
+                mutedUsers.remove(userName);
             } else {
-                // Mute
                 mutedUsers.add(userName);
-                System.out.println(name + " a muté " + userName);
             }
+            // Only logged in sender's log
+            log.add(new ChatMessage("mute", "-", userName, ""));
             // END STRIP
         }
 
         /**
-         * Vérifie si un utilisateur donné est actuellement muté.
+         * Checks whether a given user is currently muted.
          *
-         * @param userName nom de l’utilisateur à vérifier
-         * @return true si l’utilisateur est muté, false sinon
+         * @param userName the user to check
+         * @return true if muted, false otherwise
          */
         public boolean isMuted(String userName) {
-            // TODO
             // BEGIN STRIP
-            for (String muted : mutedUsers) {
-                if (muted.equals(userName)) {
-                    return true;
-                }
-            }
+            return mutedUsers.contains(userName);
             // END STRIP
-            return false;
-
         }
     }
 
     /* ------------------ SUBJECT ------------------ */
     /**
-     * Représente une salle de discussion (canal).
-     * C’est le "Subject" du pattern Observer :
-     *  - Elle garde une liste d’utilisateurs abonnés.
-     *  - Lorsqu’un message est envoyé, elle notifie tous les abonnés.
+     * Represents a chat room (channel).
+     * This class is the "Subject" in the Observer pattern:
+     *  - It keeps a list of subscribed users.
+     *  - When a message is sent, it notifies all subscribers except the sender.
      */
     public static class ChatRoom {
         private String channelName;
         private List<User> users;
 
         /**
-         * Constructeur pour une nouvelle salle de discussion.
+         * Creates a new chat room with the given name.
          *
-         * @param channelName le nom du canal (ex: "general", "loisirs", "jeux vidéos", ...)
+         * @param channelName the channel name (e.g. "general", "sports", "games")
          */
         public ChatRoom(String channelName) {
-            // TODO
             // BEGIN STRIP
             this.channelName = channelName;
             this.users = new ArrayList<>();
             // END STRIP
         }
 
-        /**
-         * @return le nom de la salle
-         */
+        /** @return the name of the chat room */
         public String getChannelName() {
             return channelName;
         }
 
         /**
-         * Ajoute un utilisateur à la liste des abonnés à la salle.
-         * Un message de bienvenue est affiché dans la console
-         * au format suivant "<username> a rejoint le channel #<channelname>
+         * Subscribes a user to this chat room.
+         * If the user is already subscribed, an informational message is added to their log.
          *
-         * Si l'utilisateur est déjà abonné au canal, le message suivant est affiché:
-         * "<username> est déjà abonné au channel #<channelname>
-         * @param user l’utilisateur qui rejoint la salle
+         * @param user the user joining the room
+         * @return the ChatMessage created for this event
          */
-        public void subscribe(User user) {
-            // TODO
+        public ChatMessage subscribe(User user) {
             // BEGIN STRIP
-            for (User channel_user : users) {
-                if (channel_user.equals(user)) {
-                    System.out.println(user.getName() + " est déjà abonné au channel #" + channelName);
-                    return;
+            for (User u : users) {
+                if (u.equals(user)) {
+                    ChatMessage msg = new ChatMessage("info", channelName, user.getName(),
+                            user.getName() + " is already subscribed to channel #" + channelName);
+                    user.getLog().add(msg);
+                    return msg;
                 }
             }
             users.add(user);
-            System.out.println(user.getName() + " a rejoint le channel #" + channelName);
+            ChatMessage msg = new ChatMessage("join", channelName, user.getName(), "");
+            user.getLog().add(msg);
+            return msg;
             // END STRIP
         }
 
         /**
-         * Retire un utilisateur de la salle.
-         * Un message de départ est affiché dans la console.
-         * au format suivant "<username> a quitté le channel #<channelname>
+         * Unsubscribes a user from this chat room.
+         * If the user was not subscribed, an informational message is added instead.
          *
-         * Si l'utilisateur n'est pas dans le canal, affiche le message suivant
-         * "<username> n'est pas dans le channel #<channelname>
-         *
-         * @param user l’utilisateur à retirer
+         * @param user the user leaving the room
+         * @return the ChatMessage created for this event
          */
-        public void unsubscribe(User user) {
-            // TODO
+        public ChatMessage unsubscribe(User user) {
             // BEGIN STRIP
+            ChatMessage msg;
             if (users.contains(user)) {
                 users.remove(user);
-                System.out.println(user.getName() + " a quitté le channel #" + channelName);
+                msg = new ChatMessage("leave", channelName, user.getName(),"");
             } else {
-                System.out.println(user.getName() + " n'est pas dans le channel #" + channelName);
+                msg = new ChatMessage("info", channelName, user.getName(),
+                        user.getName() + " is not in channel #" + channelName);
             }
+            user.getLog().add(msg);
+            return msg;
             // END STRIP
         }
 
         /**
-         * Traite un message envoyé dans la salle.
-         * <p>
-         * - Si le message commence par "/mute", il est traité comme une commande
-         *   pour activer ou désactiver le mute d’un autre utilisateur
-         *   au format suivant : "/mute <username>"
+         * Processes a message sent to this chat room.
          *
-         *   - Sinon, le message est envoyé à tous les abonnés et affiché sur la console sous la forme:
-         *   "<sender username> (<channel>): <message>"
+         * - If the message starts with "/mute", it is treated as a command to
+         *   mute or unmute another user in the form: "/mute <username>"
          *
-         * @param sender  l’utilisateur qui envoie le message
-         * @param message contenu du message ou commande
+         * - Otherwise, the message is broadcast to all subscribed users,
+         *   and a corresponding ChatMessage is returned.
+         *
+         * @param sender  the user sending the message
+         * @param message the message content or command
+         * @return a list of ChatMessages generated by this action
          */
-        public void sendMessage(User sender, String message) {
-            // TODO
+        public List<ChatMessage> sendMessage(User sender, ChatMessage message) {
             // BEGIN STRIP
-            if (message.startsWith("/mute")) {
-                String[] parts = message.split(" ");
-                if (parts.length == 2 && sender instanceof ChatUser) {
-                    ((ChatUser) sender).toggleMuteUser(parts[1]);
-                } else {
-                    System.out.println("Usage: /mute <nomUtilisateur>");
+            List<ChatMessage> localLogs = new ArrayList<>();
+
+            switch (message.getType()) {
+                case "mute": {
+                    sender.toggleMuteUser(message.getUser());
+                    localLogs.add(message);
+                    break;
                 }
-                return;
+                case "post": {
+                    // Sender logs the post
+                    localLogs.add(message);
+                    // Notify all other users
+                    notifyUsers(sender, message);
+                    break;
+                }
+                default:
+                    localLogs.add(new ChatMessage("info", "-", sender.getName(), "Unknown message type"));
             }
 
-            System.out.println(sender.getName() + " (" + channelName + "): " + message);
-            notifyUsers(sender, message);
+            return localLogs;
             // END STRIP
         }
 
         /**
-         * Notifie tous les utilisateurs du canal d’un nouveau message,
-         * sauf l’expéditeur lui-même.
+         * Notifies all users in the channel of a new message,
+         * except the sender themselves.
          *
-         * @param sender  l’expéditeur du message
-         * @param message contenu du message
+         * @param sender  the user who sent the message
          */
-        private void notifyUsers(User sender, String message) {
-            // TODO
-            // BEGIN STRIP
+        private void notifyUsers(User sender, ChatMessage message) {
             for (User user : users) {
                 if (!user.equals(sender)) {
-                    user.update(channelName, sender.getName() + ": " + message);
+                    // Store receive messages in receiver's log, user field = sender
+                    user.update(message);
                 }
             }
-            // END STRIP
         }
 
-        /**
-         * @return le nombre d’utilisateurs actuellement connectés à la salle
-         */
+
+        /** @return the number of users currently subscribed to this room */
         public int getUserCount() {
-            // TODO
             // BEGIN STRIP
             return users.size();
             // END STRIP
-            // STUDENT return false;
         }
     }
 

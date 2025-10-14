@@ -1,58 +1,66 @@
 package oop;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.io.*;
+import java.util.List;
 
-class ChatAppTest {
-
-    private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-    private PrintStream originalOut;
-
-    @BeforeEach
-    void setUp() {
-        originalOut = System.out;
-        System.setOut(new PrintStream(output));
-    }
-
-    @AfterEach
-    void tearDown() {
-        System.setOut(originalOut);
-    }
+public class ChatAppTest {
 
     @Test
     void testSubscriptionAndMessageNotification() {
         ChatApp.ChatRoom room = new ChatApp.ChatRoom("general");
-        ChatApp.ChatRoom games = new ChatApp.ChatRoom("games");
         ChatApp.ChatUser alice = new ChatApp.ChatUser("Alice");
         ChatApp.ChatUser bob = new ChatApp.ChatUser("Bob");
         ChatApp.ChatUser john = new ChatApp.ChatUser("John");
 
+        // Subscriptions
         room.subscribe(alice);
         room.subscribe(bob);
-        alice.sendMessage(room, "Salut tout le monde !");
 
-        String console = output.toString();
+        // Alice sends message
+        ChatApp.ChatMessage msg = new ChatApp.ChatMessage("post", "general", "Alice", "Salut tout le monde !");
+        alice.sendMessage(room, msg);
 
-        assertTrue(console.contains("Alice a rejoint le channel #general"));
-        assertTrue(console.contains("Bob a rejoint le channel #general"));
-        assertFalse(console.contains("John a rejoint le channel #general"));
+        List<ChatApp.ChatMessage> aliceLog = alice.getLog();
+        List<ChatApp.ChatMessage> bobLog = bob.getLog();
+        List<ChatApp.ChatMessage> johnLog = john.getLog();
 
-        assertTrue(console.contains("Alice (general): Salut tout le monde !"));
-        assertTrue(console.contains("[Bob] reçoit sur #general > Alice: Salut tout le monde !"));
-        assertFalse(console.contains("[Bob] reçoit sur #games > Alice: Salut tout le monde !"));
+        // Subscription logs: check type and user fields
+        assertTrue(aliceLog.stream().anyMatch(m -> m.getType().equals("join") && m.getUser().equals("Alice")));
+        assertTrue(bobLog.stream().anyMatch(m -> m.getType().equals("join") && m.getUser().equals("Bob")));
 
-        // BEGIN STRIP
-        assertFalse(console.contains("[John] reçoit sur #general > Alice: Salut tout le monde !"));
-        assertFalse(console.contains("[Alice] reçoit sur #general > Alice: Salut tout le monde !"));
-        // END STRIP
+        // Alice's post should be logged
+        assertTrue(aliceLog.stream().anyMatch(m ->
+                m.getType().equals("post") && m.getUser().equals("Alice") &&
+                        m.getChannel().equals("general") &&
+                        m.getContent().contains("Salut tout le monde !")));
 
-        output.reset();
+        // Bob should have received the message
+        assertTrue(bobLog.stream().anyMatch(m ->
+                m.getType().equals("receive") && m.getUser().equals("Alice") &&
+                        m.getChannel().equals("general") &&
+                        m.getContent().contains("Salut tout le monde !")));
 
-        room.subscribe(bob);
+        // John should have empty log
+        assertTrue(johnLog.isEmpty());
 
-        console = output.toString();
-        assertFalse(console.contains("Bob a rejoint le channel #general"));
-        assertTrue(console.contains("Bob est déjà abonné au channel #general"));
+        // Test duplicate subscription
+        ChatApp.ChatMessage result = room.subscribe(bob);
+
+        // Check that the type, user and channel are correct
+                assertEquals("info", result.getType());
+                assertEquals("Bob", result.getUser());
+                assertEquals("general", result.getChannel());
+
+        // Bob should still be subscribed exactly once
+                assertEquals(2, room.getUserCount()); // Alice + Bob
+
+        // Unsubscribe Bob and check user count
+                room.unsubscribe(bob);
+                assertEquals(1, room.getUserCount()); // Only Alice remains
+
+        // If we unsubscribe Bob again, he should not be present
+                room.unsubscribe(bob);
+                assertEquals(1, room.getUserCount()); // Still only Alice
     }
 
     @Test
@@ -64,25 +72,30 @@ class ChatAppTest {
         room.subscribe(bob);
         room.subscribe(charlie);
 
-        bob.sendMessage(room, "/mute Charlie");
+        // Bob mutes Charlie
+        ChatApp.ChatMessage muteMsg = new ChatApp.ChatMessage("mute", "-", "Charlie", "");
+        bob.sendMessage(room, muteMsg);
         assertTrue(bob.isMuted("Charlie"));
+        assertTrue(bob.getLog().stream().anyMatch(m -> m.getType().equals("mute") && m.getUser().equals("Charlie")));
 
-        output.reset();
-        charlie.sendMessage(room, "Salut !");
-        String console = output.toString();
-        assertFalse(console.contains("[Bob] reçoit"));
-        assertTrue(console.contains("Charlie (sport): Salut !"));
+        // Charlie sends message; Bob should not receive it
+        ChatApp.ChatMessage postMsg = new ChatApp.ChatMessage("post", "sport", "Charlie", "Salut !");
+        charlie.sendMessage(room, postMsg);
+        assertFalse(bob.getLog().stream().anyMatch(m -> m.getType().equals("receive") && m.getUser().equals("Charlie")));
+        assertTrue(charlie.getLog().stream().anyMatch(m -> m.getType().equals("post") && m.getContent().contains("Salut !")));
 
-        // BEGIN STRIP
-        output.reset();
+        // Bob unmutes Charlie
+        bob.sendMessage(room, muteMsg);
+        assertFalse(bob.isMuted("Charlie"));
+        assertTrue(bob.getLog().stream().anyMatch(m -> m.getType().equals("mute") && m.getUser().equals("Charlie")));
 
-        bob.sendMessage(room, "/mute Charlie");
-        charlie.sendMessage(room, "Ca va?");
-        console = output.toString();
-        assertTrue(console.contains("Charlie (sport): Ca va?"));
-        assertTrue(console.contains("[Bob] reçoit sur #sport > Charlie: Ca va?"));
-        // END STRIP
-
+        // Now Bob should receive Charlie’s messages again
+        ChatApp.ChatMessage postMsg2 = new ChatApp.ChatMessage("post", "sport", "Charlie", "Ca va?");
+        charlie.sendMessage(room, postMsg2);
+        assertTrue(bob.getLog().stream().anyMatch(m ->
+                m.getType().equals("receive") && m.getUser().equals("Charlie") &&
+                        m.getContent().contains("Ca va?")));
+        assertTrue(charlie.getLog().stream().anyMatch(m -> m.getType().equals("post") && m.getContent().contains("Ca va?")));
     }
 
     @Test
@@ -97,21 +110,26 @@ class ChatAppTest {
         room.subscribe(bob);
         assertEquals(2, room.getUserCount());
 
-        // BEGIN STRIP
-        alice.sendMessage(room, "Hello");
-        String console = output.toString();
+        // Alice sends message → Bob should receive
+        ChatApp.ChatMessage msg1 = new ChatApp.ChatMessage("post", "TPs", "Alice", "Hello");
+        alice.sendMessage(room, msg1);
+        assertTrue(bob.getLog().stream().anyMatch(m ->
+                m.getType().equals("receive") && m.getUser().equals("Alice") &&
+                        m.getContent().contains("Hello")));
 
-        assertTrue(console.contains("[Bob] reçoit sur #TPs > Alice: Hello"));
-        output.reset();
-        // END STRIP
+        // Bob unsubscribes
         room.unsubscribe(bob);
-
-        // BEGIN STRIP
-        alice.sendMessage(room, "Vous avez fait l'exercice 4?");
-        console = output.toString();
-        assertFalse(console.contains("[Bob] reçoit"));
-        // END STRIP
-
         assertEquals(1, room.getUserCount());
+
+        // Alice sends another → Bob should NOT receive
+        int bobLogSizeBefore = bob.getLog().size();
+        ChatApp.ChatMessage msg2 = new ChatApp.ChatMessage("post", "TPs", "Alice", "Vous avez fait l'exercice 4?");
+        alice.sendMessage(room, msg2);
+
+        // Check that Bob did not receive any new message from Alice
+        assertEquals(bobLogSizeBefore, bob.getLog().size());
+        assertFalse(bob.getLog().stream().anyMatch(m -> m.getType().equals("receive") &&
+                m.getUser().equals("Alice") &&
+                m.getContent().contains("Vous avez fait l'exercice 4?")));
     }
 }
