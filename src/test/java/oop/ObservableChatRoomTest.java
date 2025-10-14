@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 import static oop.ObservableChatRoom.ObservingChatUser;
 import static oop.ObservableChatRoom.CountingUser;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Grade
 public class ObservableChatRoomTest {
@@ -104,11 +103,14 @@ public class ObservableChatRoomTest {
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
     public void testNotification() {
-        boolean messageReceive = false;
 
         // We define here our own user class because
         // we want to verify whether the user is correctly notified.
+        // To do this, we simply extend the CountingUser
+        // class and override the receiveNotification method.
         class BobUser extends CountingUser {
+            boolean notificationReceived;
+
             BobUser(String name) {
                 super(name);
             }
@@ -117,6 +119,7 @@ public class ObservableChatRoomTest {
             public void receiveNotification(String senderName, String text) {
                 assertEquals("Alice", senderName);
                 assertEquals("Hello", text);
+                notificationReceived = true;
             }
         }
 
@@ -126,6 +129,7 @@ public class ObservableChatRoomTest {
 
         room.subscribe(bob);
         room.writeMessage(alice, "Hello");
+        assertTrue(bob.notificationReceived);
     }
 
     @Test
