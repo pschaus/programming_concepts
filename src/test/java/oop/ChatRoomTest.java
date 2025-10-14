@@ -4,6 +4,7 @@ import org.javagrader.Grade;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import oop.ChatRoom.ChatUser;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,10 +24,10 @@ public class ChatRoomTest {
 
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
-    public void testUsers() {
+    public void testTwoUsers() {
         ChatRoom room = new ChatRoom();
-        ChatRoom.ChatUser alice = new ChatRoom.ChatUser("Alice");
-        ChatRoom.ChatUser bob = new ChatRoom.ChatUser("Bob");
+        ChatUser alice = new ChatUser("Alice");
+        ChatUser bob = new ChatUser("Bob");
         room.writeMessage(alice, "Hello");
         room.writeMessage(bob,"Good morning");
 
@@ -44,8 +45,8 @@ public class ChatRoomTest {
         ChatRoom roomA = new ChatRoom();
         ChatRoom roomB = new ChatRoom();
 
-        ChatRoom.ChatUser alice = new ChatRoom.ChatUser("Alice");
-        ChatRoom.ChatUser bob = new ChatRoom.ChatUser("Bob");
+        ChatUser alice = new ChatUser("Alice");
+        ChatUser bob = new ChatUser("Bob");
         roomA.writeMessage(alice, "Hello");
         roomB.writeMessage(bob, "How are you?");
         roomB.writeMessage(alice,"Good morning");
