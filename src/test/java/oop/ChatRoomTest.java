@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Grade
 public class ChatRoomTest {
     @Test
     @Grade(value = 1, cpuTimeout = 1000)
