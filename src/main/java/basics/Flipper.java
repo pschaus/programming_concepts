@@ -7,9 +7,7 @@ import java.util.Set;
 import java.util.HashSet;
 // END STRIP
 
-// SEE THE explanations in the Videos
 
-// BEGIN STRIP
 /**
  * Only video instructions were given for the quiz https://www.youtube.com/watch?v=3qD_6wz7hOo
  *
@@ -20,7 +18,6 @@ import java.util.HashSet;
  *  - Should return the number of cells visited by the ball, not counting multiple visits to the same cell
  *  - The students should note that one of the deviation symbol is an escape char
  */
-// END STRIP
 public class Flipper {
 
     // BEGIN STRIP
