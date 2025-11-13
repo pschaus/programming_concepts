@@ -172,7 +172,7 @@ public class ConvolutionTest {
         
         int [][] expected = _correctConvolution(input, kernel);
         int [][] actual = Convolution.convolution(input, kernel);
-        assertArrayEquals(expected, actual, "La méthode ne fonctionne pas lorsque l'input a le même nombre de ligne que le kernel");
+        assertArrayEquals(expected, actual, "La méthode ne fonctionne pas lorsque l'input a le même nombre de lignes que le kernel");
     }
 
     @Test

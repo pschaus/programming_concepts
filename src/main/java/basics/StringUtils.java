@@ -9,8 +9,8 @@ public class StringUtils {
      * @param str The string to split
      * @param delimiter The delimiter
      * @return An array containing the substring which fall
-     *          between two consecutive occurence of the delimiter.
-     *          If there is no occurence of the delimiter, it should
+     *          between two consecutive occurrence of the delimiter.
+     *          If there is no occurrence of the delimiter, it should
      *          return an array of size 1 with the string at element 0
      */
     public static String [] split(String str, char delimiter){
@@ -43,7 +43,7 @@ public class StringUtils {
 
 
     /**
-     * Find the first occurence of a substring in a string
+     * Find the first occurrence of a substring in a string
      *
      * @param str The string to look in
      * @param sub The string to look for
@@ -89,14 +89,14 @@ public class StringUtils {
 
 
     /**
-     * Check if a string is a palyndrome
+     * Check if a string is a palindrome
      *
-     * A palyndrome is a sequence of character that is the
+     * A palindrome is a sequence of character that is the
      * same when read from left to right and from right to
      * left.
      *
      * @param str The string to check
-     * @return true if str is a palyndrome, false otherwise
+     * @return true if str is a palindrome, false otherwise
      */
     public static boolean palindrome(String str){
         // STUDENT return false;

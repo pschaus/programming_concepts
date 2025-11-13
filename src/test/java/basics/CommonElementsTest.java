@@ -181,7 +181,7 @@ public class CommonElementsTest {
     public void testCommutativityArray() {
         int [] tab1 = _createRandomArray();
         int [] tab2 = _createRandomArray();
-        assertEquals(CommonElements.count(tab1, tab2), CommonElements.count(tab2, tab1),"La méthode retourne des résultats différent lorsque les paramètres sont inversés");
+        assertEquals(CommonElements.count(tab1, tab2), CommonElements.count(tab2, tab1),"La méthode retourne des résultats différents lorsque les paramètres sont inversés");
     }
 
     @Test
@@ -242,7 +242,7 @@ public class CommonElementsTest {
     public void commutativityMatrix() {
         int [][] mat1 = _createRandomMatrix();
         int [][] mat2 = _createRandomMatrix();
-        assertEquals(CommonElements.count(mat1, mat2), CommonElements.count(mat2, mat1),"La méthode retourne des résultats différent lorsque les paramètres sont inversés");
+        assertEquals(CommonElements.count(mat1, mat2), CommonElements.count(mat2, mat1),"La méthode retourne des résultats différents lorsque les paramètres sont inversés");
     }
 // END STRIP
 }

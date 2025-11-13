@@ -60,7 +60,7 @@ public class PatternMatchingTest {
     public void testMultiple() {
         String pattern = _randomString();
         String input = _randomString() + pattern + _randomString() + pattern;
-        assertEquals(input.indexOf(pattern), PatternMatching.find(pattern, input),"La méthode ne retourn pas le bon résultat lorsque le pattern est plusieurs fois dans l'input");
+        assertEquals(input.indexOf(pattern), PatternMatching.find(pattern, input),"La méthode ne retourne pas le bon résultat lorsque le pattern est plusieurs fois dans l'input");
     }
 
     @Test
