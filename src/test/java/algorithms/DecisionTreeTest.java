@@ -140,8 +140,8 @@ public class DecisionTreeTest {
         DecisionTree True = DecisionTree.decisionNode(true);
         DecisionTree False = DecisionTree.decisionNode(false);
         boolean [] features = _createFeatures();
-        assertTrue(True.predict(features),"Un noeud créer avec `decisionNode(true)` ne retourne pas true" );
-        assertFalse(False.predict(features),"Un noeud créer avec `decisionNode(false)` ne retourne pas false");
+        assertTrue(True.predict(features),"Un noeud créé avec `decisionNode(true)` ne retourne pas true" );
+        assertFalse(False.predict(features),"Un noeud créé avec `decisionNode(false)` ne retourne pas false");
     }
 
     @Test
