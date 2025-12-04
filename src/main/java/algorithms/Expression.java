@@ -12,7 +12,30 @@ package algorithms;
  * You can/should extend this class with inner classes the way you want.
  * You can also modify it but you are not allowed to modify the signature
  * of existing methods
- *
+ * 
+ * Here is an example: (x + 2) * (x + 3) could be represented as 
+ * 
+ *               MUL
+ *              /   \
+ *             /     \
+ *           PLUS     PLUS
+ *          /  |      |  \
+ *         /   |      |   \ 
+ *        X    2      X    3
+ * 
+ * Evaluating this tree with xValue = 5 returns 56 and derivating it gives you 1*(x + 3) + (x + 2)*1, repesented as
+ * 
+ *               PLUS
+ *              /   \
+ *             /     \
+ *           MUL      MUL
+ *          /  |      |  \
+ *         /   |      |   \ 
+ *        1   PLUS   PLUS  1
+ *           /  |    |  \
+ *          /   |    |   \
+ *         X    3    X    2
+ * 
  * As a reminder, the formulas for the derivations as are followed
  *  - (f + g)' = f' + g'
  *  - (f*g)' = f'g + fg'
