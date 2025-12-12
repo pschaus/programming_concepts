@@ -70,6 +70,7 @@ public class CircularLinkedList {
         } else {
             this.first = Optional.of(node);
             this.last = Optional.of(node);
+            node.setNext(node);
         }
         // END STRIP
     }
@@ -78,14 +79,35 @@ public class CircularLinkedList {
         // STUDENT return -1;
         // BEGIN STRIP
         if (index >= this.size) {
-
+            return -1;
         }
-        if (index == 0) {
-            int value = this.first.get().value;
-        }
-        Node first = this.first.get();
         
-        return 0;
+        int value;
+        this.size -= 1;
+        if (index == 0) {
+            value = this.first.get().value;
+            Node newFirst = this.first.get().next.get();
+            this.first = Optional.of(newFirst);
+            this.last.get().setNext(newFirst);
+        } else {
+            Node current = this.first.get();
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next.get();
+            }
+            value = current.next.get().value;
+            Node nextNode = current.next.get().next.get();
+            current.setNext(nextNode);
+            if (index == this.size) {
+                this.last = Optional.of(current);
+            }
+        }
+
+        if (this.size == 0) {
+            this.first = Optional.empty();
+            this.last = Optional.empty();
+        }
+        
+        return value;
         // END STRIP
     }
 }
