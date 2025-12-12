@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Grade
 public class CircularLinkedListTest {
 
+    // BEGIN STRIP
     private void assertLinkedListState(CircularLinkedList list, int[] expectedValues) {
         assertEquals(expectedValues.length, list.size);
         if (expectedValues.length == 0) {
@@ -32,6 +33,7 @@ public class CircularLinkedListTest {
             assertEquals(list.getFirst().get(), lastNode.next.get());
         }
     }
+    // END STRIP
     
     @Test
     @Grade(value = 1)
@@ -60,9 +62,17 @@ public class CircularLinkedListTest {
 
         assertEquals(3, list.size);
         int[] array = new int[]{0, 1, 2};
+        // STUDENT CircularLinkedList.Node current = list.first.get();
+        // STUDENT for (int i = 0; i < array.length; i++) {
+        // STUDENT     assertEquals(array[i], current.value);
+        // STUDENT     current = current.next.get();
+        // STUDENT }            
+        // BEGIN STRIP
         assertLinkedListState(list, array);
+        // END STRIP
     }
 
+    // BEGIN STRIP
     @Test
     @Grade(value = 1)
     public void testLength0() {
@@ -130,5 +140,6 @@ public class CircularLinkedListTest {
         int result = list.remove(0); // Should not crash, should return -1
         assertEquals(-1, result);
     }
+    // END STRIP
     
 }
