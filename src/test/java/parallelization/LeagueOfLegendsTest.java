@@ -13,6 +13,8 @@ import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Grade
+@Allow("java.lang.Thread")
 public class LeagueOfLegendsTest {
 
     private static class TestChampion implements LeagueOfLegends.Champion {
@@ -44,6 +46,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testPhysicalDamageNoArmor() {
         TestChampion champion = new TestChampion("A", 0, 0);
         long result = LeagueOfLegends.computePhysicalDamage(champion, 200);
@@ -52,6 +55,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testPhysicalDamageWithArmor() {
         TestChampion champion = new TestChampion("A", 100, 0);
         long result = LeagueOfLegends.computePhysicalDamage(champion, 200);
@@ -60,6 +64,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testMagicalDamageNoResistance() {
         TestChampion champion = new TestChampion("A", 0, 0);
         long result = LeagueOfLegends.computeMagicalDamage(champion, 300);
@@ -68,6 +73,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testMagicalDamageWithResistance() {
         TestChampion champion = new TestChampion("A", 0, 100);
         long result = LeagueOfLegends.computeMagicalDamage(champion, 300);
@@ -76,6 +82,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testNegativePhysicalDamage() {
         TestChampion champion = new TestChampion("A", 50, 50);
         assertThrows(
@@ -86,6 +93,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testNegativeMagicalDamage() {
         TestChampion champion = new TestChampion("A", 50, 50);
         assertThrows(
@@ -96,6 +104,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testTotalDamage() {
         TestChampion champion = new TestChampion("A", 100, 100);
         long result = new LeagueOfLegends.Attack(200, 300).computeTotalDamage(champion);
@@ -104,6 +113,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testSequentialAllChampions() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 0, 0),
@@ -125,6 +135,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testSequentialWithPredicate() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 50, 50),
@@ -145,6 +156,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testSequentialSubArray() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 0, 0),
@@ -164,6 +176,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testSequentialEmptyRange() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 0, 0)
@@ -180,6 +193,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testSequentialInvalidIndices() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 0, 0)
@@ -196,6 +210,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testParallel() {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
@@ -223,6 +238,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testParallelWithPredicate() {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
@@ -251,6 +267,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testMostResistantUniqueMinimum() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 0, 0),
@@ -291,6 +308,7 @@ public class LeagueOfLegendsTest {
     }
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testMostResistantDuplicateMinimum() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 300, 300),
@@ -324,6 +342,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testMostResistantSeveralDuplicateLevels() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 300, 300),
@@ -357,6 +376,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testMostResistantAllValuesDuplicated() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 100, 300),
@@ -391,6 +411,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testMostResistantNoChampionMatchesPredicate() {
         LeagueOfLegends.Champion[] champions = {
                 new TestChampion("A", 300, 300),
@@ -420,6 +441,7 @@ public class LeagueOfLegendsTest {
 
 
     @Test
+    @Grade(value = 1, cpuTimeout = 1000)
     public void testDuplicateMinimumAcrossTwoHalves() {
         LeagueOfLegends.Champion[] champions = {
                 // première moitié
