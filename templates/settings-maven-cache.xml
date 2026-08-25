@@ -1,0 +1,9 @@
+<settings>
+  <mirrors>
+    <mirror>
+      <id>nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <url>https://maven-cache.info.ucl.ac.be/maven2/</url>
+    </mirror>
+  </mirrors>
+</settings>

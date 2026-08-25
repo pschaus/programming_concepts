@@ -86,12 +86,14 @@ def create_exercise_task(package, exercise):
     # Copy the test file to the src directory
     create_test_file(package, exercise, exercise_dir)
 
-    # Run file
-    run_file = 'run.py'
-    
-    with open(os.path.join(exercise_dir, run_file), 'w') as f:
-        f.write(open(os.path.join(templates_dir, run_file)).read().format(package, exercise))
-
+    # Run files
+    for run_file in [
+            'run.py',
+            'settings-maven-cache.xml',
+            ]:
+        with open(os.path.join(exercise_dir, run_file), 'w') as f:
+            with open(os.path.join(templates_dir, run_file), 'r') as g:
+                f.write(g.read().format(package, exercise))
 
     # write the template file
     with open(os.path.join(exercise_dir, 'src', 'main', 'java', package, exercise + '.java'), 'w') as f:

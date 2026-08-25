@@ -11,13 +11,50 @@ from inginious import input
 code_file = 'src/main/java/{0}/{1}.java'
 input.parse_template(code_file)
 
-fail_if_stderr = True
-out = subprocess.Popen(f'mvn -q -am test',
-                       shell=True,
-                       stdout=subprocess.PIPE,
-                       stderr=None if fail_if_stderr else subprocess.DEVNULL).stdout.read()
+FAIL_IF_STDERR = True
 
-out = out.decode().split("\n")
+MIRROR_FLAGS = [
+    '-s', 'settings-maven-cache.xml',
+    '-Dmaven.wagon.http.connectionTimeout=5000',
+    '-Dmaven.wagon.http.readTimeout=5000',
+    '-Daether.connector.connectTimeout=5000',
+    '-Daether.connector.requestTimeout=5000',
+]
+
+
+def run_mvn(flags = []):
+    command = [ 'mvn', '-q', '-am', 'test' ] + flags
+
+    process = subprocess.run(
+        command,
+        shell=False,  # Allow "command" to be a list of strings (not just a string)
+        stdout=subprocess.PIPE,
+        stderr=None if FAIL_IF_STDERR else subprocess.DEVNULL,
+    )
+
+    # Maven only uses the stdout for its results
+    return process.stdout.decode().split('\n')
+
+
+# 1st attempt: use Maven mirror but with a short timeout, so a dead
+# mirror fails fast instead of hanging.
+out = run_mvn(MIRROR_FLAGS)
+
+
+is_error_with_mirror = False
+for l in out:
+    if l.startswith('[ERROR]') and 'org.apache.maven.plugins:maven-resources-plugin' in l:
+        is_error_with_mirror = True
+        break
+
+
+if is_error_with_mirror:
+    # Mirror likely down (or something else failed fast) -> retry once with
+    # the fallback settings.xml (no mirror, hits Central directly), this
+    # time without an artificial timeout so a normal-length build can finish.
+    out = run_mvn()
+
+
 try:
     start = -1
     end = -1
