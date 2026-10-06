@@ -140,17 +140,23 @@ def generate_course_yaml():
         for j, exercise in enumerate(exercises[package]):
             toc += f"    {package}_{exercise}: {j}\n"
     dispenser_data = ""
+    config= ""
     for i, package in enumerate(packages):
-        config= ""
+        dispenser_data += "    -   config:\n"
+        dispenser_data += "            closed: false\n"
+        dispenser_data += "            hidden_if_empty: false\n"
+        dispenser_data += "        tasks_list:\n"
         for j, exercise in enumerate(exercises[package]):
-            config += f"    {package}_{exercise}\n"
-            config += f"        accessibility: true\n"
-            config += f"        evaluation_mode: last\n"
-            config += f"        submission_limit:\n"
-            config += f"            amount: -1\n"
-            config += f"        period: -1\n"
-            config += f"        weight: 1.0\n"
-        dispenser_data += f"config:\n{config}\n"
+            config += f"        {package}_{exercise}:\n"
+            config +=  "            accessibility: true\n"
+            config +=  "            evaluation_mode: last\n"
+            config +=  "            submission_limit:\n"
+            config +=  "                amount: -1\n"
+            config +=  "                period: -1\n"
+            config +=  "            weight: 1\n"
+            dispenser_data += f"        - {package}_{exercise}\n"
+        dispenser_data += f"        title: {package}\n"
+    dispenser_data = f"    config:\n{config}    imported: false\n    toc:\n{dispenser_data}"
 
     with open(os.path.join(inginious_dir, 'course.yaml'), 'w') as f:
         f.write(tpl.format(toc=toc, dispenser_data=dispenser_data))

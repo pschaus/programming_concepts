@@ -17,7 +17,7 @@ context: |-
 
          * Instruction provided at the top of the source file on IntelliJ.
          * Debug using small and easy unit tests provided in junit tests, it can also help to clarify the instructions.
-environment: java8
+environment: java-21
 file: ''
 input_random: '0'
 limits:

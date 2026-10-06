@@ -9,6 +9,7 @@ admins:
 - wiauxb
 - bduhoux
 - froucoux
+- Harold
 tutors:
 - qkenfack
 groups_student_choice: false
@@ -25,8 +26,9 @@ lti_send_back_grade: false
 registration_ac_accept: true
 toc:
 {toc}
-task_dispenser : toc
+task_dispenser: toc
 dispenser_data:
 {dispenser_data}
 lti_config: {{}}
 tags: {{}}
+lti_secrets: {{}}
