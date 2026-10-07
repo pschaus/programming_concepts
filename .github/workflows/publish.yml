@@ -7,16 +7,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: pschaus/minicp:version1.1
     steps:
-      - uses: actions/checkout@v2
-      - name: Step1 - Set up Python 3.8
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
         with:
-          python-version: 3.8
-      - name: Step2 - Install python dependencies
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install python dependencies
         run: |
-          # python -m pip install --upgrade pip
+          pip install setuptools amanda
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Step3 - Test
         run: |
@@ -33,7 +38,7 @@ jobs:
           git config --global user.email pschaus@users.noreply.github.com
           echo "setup ssh keys ..."
           mkdir -p ~/.ssh
-          (umask  077 ; echo $MY_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
+          (umask 077 ; echo "$MY_SSH_KEY" | base64 --decode > ~/.ssh/id_rsa)
           chmod -R 700 ~/.ssh
           md5sum ~/.ssh/id_rsa
           #ssh -i ~/.ssh/id_rsa -vvvv -o StrictHostKeyChecking=no git@github.com
