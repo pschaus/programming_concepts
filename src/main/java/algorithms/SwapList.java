@@ -23,11 +23,13 @@ interface SwapList {
      */
     void pop();
     /**
+    * Return True if the full list is sorted, False otherwise
+    **/
     boolean isSorted();
 
     /**
      * You have to sorts a list of integers in increasing order.
-     * This ist is a bit special since you only have access to the first two elements.
+     * This list is a bit special since you only have access to the first two elements.
      *
      * We expect your algorithm to run in O(n^2), where n is the size of the list.
      * Precisely, we expect that you make at MOST n^2 calls to list.pop() and at
@@ -67,6 +69,3 @@ interface SwapList {
         // Here, if you followed the invariant proposed above, the list should be sorted!
     }
 }
-
-
-
