@@ -18,7 +18,7 @@ public class FunctionRootTest {
         }
 
         public int evaluates(int x) {
-            if (x < -10 && x > 10) {
+            if (x < -10 || x > 10) {
                 throw new IllegalArgumentException("Querying the function on a value outside its domain");
             }
             return x;
@@ -45,7 +45,7 @@ public class FunctionRootTest {
         }
 
         public int evaluates(int x) {
-            if (x < -100 && x > 100) {
+            if (x < -100 || x > 100) {
                 throw new IllegalArgumentException("Querying the function on a value outside its domain");
             }
             if (x == 10) {
@@ -80,7 +80,7 @@ public class FunctionRootTest {
         }
 
         public int evaluates(int x) {
-            if (x < -50 && x > 75) {
+            if (x < -50 || x > 75) {
                 throw new IllegalArgumentException("Querying the function on a value outside its domain");
             }
             if (x == 75) {
@@ -115,7 +115,7 @@ public class FunctionRootTest {
         }
 
         public int evaluates(int x) {
-            if (x < -50 && x > 75) {
+            if (x < -50 || x > 75) {
                 throw new IllegalArgumentException("Querying the function on a value outside its domain");
             }
             if (x == -50) {
@@ -150,7 +150,7 @@ public class FunctionRootTest {
         }
 
         public int evaluates(int x) {
-            if (x < -10_000 && x > 10_000) {
+            if (x < -10_000 || x > 10_000) {
                 throw new IllegalArgumentException("Querying the function on a value outside its domain");
             }
             if (x == 9375) {
@@ -181,7 +181,7 @@ public class FunctionRootTest {
         }
 
         public int evaluates(int x) {
-            if (x < -10_000 && x > 10_000) {
+            if (x < -10_000 || x > 10_000) {
                 throw new IllegalArgumentException("Querying the function on a value outside its domain");
             }
             if (x == -9375) {
